@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu Malik</title>
+<meta name="description" content="Himanshu Malik, B.S. (Hons.) Chemistry at IIT Kharagpur. I build software, analyse data, and work on product.">
+<link rel="icon" href="assets/img/iitkgp-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/iitkgp-logo.png" alt="" class="brand-logo">
+      <span>Himanshu Malik</span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="experience.html">Experience</a>
+      <a href="projects.html">Projects</a>
+      <a href="education.html">Education</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="text-btn" type="button" aria-label="Switch colour theme">
+        <span class="label-dark">Dark</span>
+        <span class="label-light">Light</span>
+      </button>
+      <button id="menu-toggle" class="text-btn menu-btn" type="button" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">
+          <img src="assets/img/iitkgp-logo.png" alt="" class="eyebrow-logo">
+          IIT Kharagpur, Class of 2028
+        </p>
+        <h1>Himanshu Malik</h1>
+        <p class="hero-role">Undergraduate in Chemistry. I write code, analyse data, and think about product.</p>
+        <p class="hero-sub">
+          I study B.S. (Hons.) Chemistry at IIT Kharagpur, though most of what I build sits outside my
+          department: full-stack web applications, SQL and Python analysis, and business cases I have pitched
+          and defended. Last year I won the gold medal at the Open IIT Data Analyst competition. I am still
+          working out which of these three I want to go deepest in, and I am comfortable saying so.
+        </p>
+
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary">See my work</a>
+
+          <div class="resume-dropdown">
+            <button class="btn btn-outline" id="resume-btn" type="button" aria-haspopup="true" aria-expanded="false">
+              <span>Download resume</span>
+              <span class="chev" aria-hidden="true"></span>
+            </button>
+            <div class="resume-menu" id="resume-menu" role="menu">
+              <p class="resume-menu-head">I keep three versions</p>
+              <a role="menuitem" href="assets/resume/Himanshu_Malik_SDE.pdf" download>
+                <strong>Software development</strong>
+                <span>DSA, full-stack projects, systems</span>
+              </a>
+              <a role="menuitem" href="assets/resume/Himanshu_Malik_Data.pdf" download>
+                <strong>Data analysis</strong>
+                <span>SQL, Python, statistics, ML</span>
+              </a>
+              <a role="menuitem" href="assets/resume/Himanshu_Malik_Product.pdf" download>
+                <strong>Product</strong>
+                <span>Strategy, research, growth</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <ul class="hero-socials">
+          <li><a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:himanshumalik0033@gmail.com">Email</a></li>
+        </ul>
+      </div>
+
+      <figure class="hero-photo">
+        <img src="assets/img/profile.jpg" alt="Himanshu Malik" width="380" height="440">
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Three things I do</h2>
+      <p class="section-intro">Each has its own page, and its own resume.</p>
+
+      <div class="teaser-grid">
+        <a class="teaser" href="projects.html">
+          <h3>Build software</h3>
+          <p>
+            Full-stack web applications, mostly Python and JavaScript on a relational database.
+            A weather app and a supermarket billing system are the two I am happiest with.
+          </p>
+          <span class="teaser-more">See the projects</span>
+        </a>
+        <a class="teaser" href="skills.html">
+          <h3>Analyse data</h3>
+          <p>
+            SQL and Python for the analysis, Power BI and Matplotlib for the reporting.
+            Statistical inference coursework underneath it, and a gold medal to show for it.
+          </p>
+          <span class="teaser-more">See the skills</span>
+        </a>
+        <a class="teaser" href="experience.html">
+          <h3>Think about product</h3>
+          <p>
+            Market research and pricing work for a small jewellery brand, plus a business plan
+            I wrote and pitched. The part where analysis has to change a decision.
+          </p>
+          <span class="teaser-more">See the experience</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>Himanshu Malik, <span id="year"></span>. Written by hand in HTML, CSS and JavaScript.</p>
+    <a href="mailto:himanshumalik0033@gmail.com">himanshumalik0033@gmail.com</a>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects &mdash; Himanshu Malik</title>
+<meta name="description" content="Full-stack builds, SQL and Python analysis, and product cases.">
+<link rel="icon" href="assets/img/iitkgp-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/iitkgp-logo.png" alt="" class="brand-logo">
+      <span>Himanshu Malik</span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="experience.html">Experience</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="education.html">Education</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="text-btn" type="button" aria-label="Switch colour theme">
+        <span class="label-dark">Dark</span>
+        <span class="label-light">Light</span>
+      </button>
+      <button id="menu-toggle" class="text-btn menu-btn" type="button" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <div class="container">
+      <h1>Projects</h1>
+      <p>Personal builds and coursework. Filter by the kind of work.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-row" id="filter-row">
+        <button class="filter-btn active" data-filter="all" type="button">All</button>
+        <button class="filter-btn" data-filter="dev" type="button">Development</button>
+        <button class="filter-btn" data-filter="data" type="button">Data</button>
+        <button class="filter-btn" data-filter="product" type="button">Product</button>
+      </div>
+
+      <div class="project-grid" id="project-grid">
+
+        <article class="project-card" data-cat="dev">
+          <div class="project-top">
+            <span class="entry-tag">Development</span>
+            <span class="project-date">Jun 2026</span>
+          </div>
+          <h3>Weather application</h3>
+          <p>A responsive web app for live weather and short-range forecasts.</p>
+          <ul>
+            <li>Frontend that keeps a lot of meteorological data readable on a phone screen.</li>
+            <li>Pulls location-based conditions from a REST API and refreshes in place.</li>
+            <li>Handles slow and dropped connections without leaving the UI in a broken state.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="dev">
+          <div class="project-top">
+            <span class="entry-tag">Development</span>
+            <span class="project-date">May 2026</span>
+          </div>
+          <h3>Supermarket management system</h3>
+          <p>A full-stack tool for inventory and daily billing at a small retail shop.</p>
+          <ul>
+            <li>Backend that tracks a large product catalogue and each day's transactions.</li>
+            <li>Authentication plus a billing screen built for speed at the counter.</li>
+            <li>Dashboard reading from a relational schema so the sales numbers stay consistent.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="data">
+          <div class="project-top">
+            <span class="entry-tag">Data</span>
+            <span class="project-date">May 2026</span>
+          </div>
+          <h3>Zepto inventory analysis</h3>
+          <p>An end-to-end SQL study of quick-commerce inventory data.</p>
+          <ul>
+            <li>Designed the PostgreSQL schema to hold and query the raw inventory dumps.</li>
+            <li>Used joins, window functions and aggregations to get at per-SKU performance.</li>
+            <li>Traced stock discrepancies back to specific gaps in restocking.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="data">
+          <div class="project-top">
+            <span class="entry-tag">Data</span>
+            <span class="project-date">Jun 2026</span>
+          </div>
+          <h3>Zomato ratings &amp; pricing</h3>
+          <p>Exploratory analysis of what drives restaurant ratings and cost.</p>
+          <ul>
+            <li>Cleaned a messy public dataset with Pandas, handling missing and malformed rows.</li>
+            <li>Charted the findings in Matplotlib and Seaborn.</li>
+            <li>Looked for correlations between location, average cost and customer satisfaction.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="data">
+          <div class="project-top">
+            <span class="entry-tag">Data</span>
+            <span class="project-date">Spring 2026</span>
+          </div>
+          <h3>Statistical inference term project</h3>
+          <p>Coursework under Prof. Anikit Biswas at IIT Kharagpur.</p>
+          <ul>
+            <li>Built hypothesis tests using likelihood ratio tests and the Neyman&ndash;Pearson lemma.</li>
+            <li>Assessed estimator efficiency with the Cram&eacute;r&ndash;Rao bound and Karlin&ndash;Rubin theorem.</li>
+            <li>Wrote the code to run the derivations numerically and plot the results.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="product">
+          <div class="project-top">
+            <span class="entry-tag">Product</span>
+            <span class="project-date">Autumn 2025</span>
+          </div>
+          <h3>Dream Home Solutions</h3>
+          <p>A business model for digital property and community management, built for my entrepreneurship course.</p>
+          <ul>
+            <li>Sized the market and worked out which segment we could actually reach.</li>
+            <li>Designed the branding and the community space where users would gather.</li>
+            <li>Wrote the full business plan and pitched it as a viable venture.</li>
+          </ul>
+        </article>
+
+        <article class="project-card" data-cat="product">
+          <div class="project-top">
+            <span class="entry-tag">Product</span>
+            <span class="project-date">Jan 2026</span>
+          </div>
+          <h3>Smart India Hackathon, Team The Outliers</h3>
+          <p>A software solution to a problem statement posed by industry, pitched to a panel.</p>
+          <ul>
+            <li>Authored the idea presentation covering architecture and technical feasibility.</li>
+            <li>Framed the solution around the constraints the government brief actually set.</li>
+            <li>Cut the technical detail down to something a mixed panel could follow.</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <p class="grid-empty" id="grid-empty" hidden>Nothing in this category yet.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>Himanshu Malik, <span id="year"></span>. Written by hand in HTML, CSS and JavaScript.</p>
+    <a href="mailto:himanshumalik0033@gmail.com">himanshumalik0033@gmail.com</a>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
