@@ -166,20 +166,6 @@ body {
 }
 .eyebrow-logo { width: 17px; height: 19px; object-fit: contain; }
 
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 14px 6px 11px;
-  margin-bottom: 16px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
 .status-dot {
   position: relative;
   width: 7px;
@@ -236,26 +222,22 @@ body {
 .tech-stack li {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 13px;
+  padding: 6px 12px;
   border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
+  border-radius: 6px;
+  background: var(--accent-soft);
   font-family: var(--font-body);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--text-muted);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
-.tech-stack li::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
+.tech-stack li:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border-strong));
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--text);
 }
-.tech-stack li:hover { border-color: var(--border-strong); color: var(--text); }
 
 .hero-actions {
   display: flex; align-items: center; gap: 12px;
