@@ -75,4 +75,14 @@
       if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
     });
   });
+
+  // Bento card cursor-tracked glow (home page teasers)
+  var teasers = document.querySelectorAll(".teaser");
+  teasers.forEach(function (card) {
+    card.addEventListener("mousemove", function (e) {
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
+      card.style.setProperty("--my", (e.clientY - rect.top) + "px");
+    });
+  });
 })();
