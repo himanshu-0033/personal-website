@@ -188,45 +188,72 @@
     svg.setAttribute("preserveAspectRatio", "none");
     grid.insertBefore(svg, grid.firstChild);
 
-    // --- bezier helpers -------------------------------------------------
-    function qPoint(p0, p1, p2, t) {
-      var m = 1 - t;
-      return {
-        x: m * m * p0.x + 2 * m * t * p1.x + t * t * p2.x,
-        y: m * m * p0.y + 2 * m * t * p1.y + t * t * p2.y
-      };
-    }
-    function qTangent(p0, p1, p2, t) {
-      var m = 1 - t;
-      return {
-        x: 2 * m * (p1.x - p0.x) + 2 * t * (p2.x - p1.x),
-        y: 2 * m * (p1.y - p0.y) + 2 * t * (p2.y - p1.y)
-      };
+    function el(name, attrs) {
+      var n = document.createElementNS(NS, name);
+      for (var k in attrs) n.setAttribute(k, attrs[k]);
+      return n;
     }
 
-    // a curve with real thickness that tapers from w0 to w1
-    function ribbon(p0, p1, p2, w0, w1, steps) {
-      var left = [], right = [], i, t, pt, d, len, nx, ny, w;
-      steps = steps || 26;
-      for (i = 0; i <= steps; i++) {
-        t = i / steps;
-        pt = qPoint(p0, p1, p2, t);
-        d = qTangent(p0, p1, p2, t);
-        len = Math.sqrt(d.x * d.x + d.y * d.y) || 1;
-        nx = -d.y / len; ny = d.x / len;
+    // Build a tapered ribbon through an arbitrary centreline. Working from
+    // sampled points rather than a single bezier is what lets the trunk
+    // meander as much as it likes.
+    function ribbonFromPoints(pts, w0, w1) {
+      var left = [], right = [], i, prev, next, dx, dy, len, nx, ny, t, w;
+      for (i = 0; i < pts.length; i++) {
+        prev = pts[Math.max(0, i - 1)];
+        next = pts[Math.min(pts.length - 1, i + 1)];
+        dx = next.x - prev.x; dy = next.y - prev.y;
+        len = Math.sqrt(dx * dx + dy * dy) || 1;
+        nx = -dy / len; ny = dx / len;
+        t = i / (pts.length - 1);
         w = (w0 + (w1 - w0) * t) / 2;
-        left.push([pt.x + nx * w, pt.y + ny * w]);
-        right.push([pt.x - nx * w, pt.y - ny * w]);
+        left.push([pts[i].x + nx * w, pts[i].y + ny * w]);
+        right.push([pts[i].x - nx * w, pts[i].y - ny * w]);
       }
       right.reverse();
       var fmt = function (a) { return a[0].toFixed(1) + "," + a[1].toFixed(1); };
       return "M" + left.map(fmt).join("L") + "L" + right.map(fmt).join("L") + "Z";
     }
 
-    function el(name, attrs) {
-      var n = document.createElementNS(NS, name);
-      for (var k in attrs) n.setAttribute(k, attrs[k]);
-      return n;
+    function cubic(p0, p1, p2, p3, t) {
+      var m = 1 - t;
+      return {
+        x: m*m*m*p0.x + 3*m*m*t*p1.x + 3*m*t*t*p2.x + t*t*t*p3.x,
+        y: m*m*m*p0.y + 3*m*m*t*p1.y + 3*m*t*t*p2.y + t*t*t*p3.y
+      };
+    }
+
+    // a pointed leaf, drawn at the origin then rotated onto the branch
+    function leaf(x, y, angleDeg, size, cls, fill) {
+      var L = size, w = size * 0.42;
+      var d = "M0 0 Q" + (L * 0.45) + " " + (-w) + " " + L + " 0 Q" + (L * 0.45) + " " + w + " 0 0 Z";
+      return el("path", {
+        d: d,
+        fill: fill,
+        "class": cls,
+        transform: "translate(" + x.toFixed(1) + "," + y.toFixed(1) + ") rotate(" + angleDeg.toFixed(1) + ")"
+      });
+    }
+
+    // scatter leaves along a sampled centreline
+    function leavesAlong(pts, from, to, count, size, seed, bucket) {
+      var out = [], i, idx, p, nxt, ang, side, s;
+      for (i = 0; i < count; i++) {
+        var f = from + (to - from) * (count === 1 ? 0.5 : i / (count - 1));
+        idx = Math.min(pts.length - 2, Math.round(f * (pts.length - 1)));
+        p = pts[idx];
+        nxt = pts[idx + 1];
+        ang = Math.atan2(nxt.y - p.y, nxt.x - p.x) * 180 / Math.PI;
+        side = (i + seed) % 2 === 0 ? -1 : 1;
+        s = size * (0.78 + (((i * 29 + seed * 13) % 9) / 9) * 0.5);
+        // green mostly, a few gold ones for variety
+        var gold = ((i * 17 + seed * 7) % 5) === 0;
+        out.push(leaf(p.x, p.y, ang + side * (38 + ((i * 23) % 22)), s,
+                      "leaf" + (gold ? " leaf-gold" : ""),
+                      gold ? "#f0b364" : "url(#leafGrad)"));
+      }
+      bucket.push.apply(bucket, out);
+      return out;
     }
 
     var branchPaths = [];
@@ -246,142 +273,180 @@
       });
       if (!items.length) return;
 
-      // --- palette ------------------------------------------------------
+      // ---- palette ----------------------------------------------------
       var defs = el("defs", {});
       var g = el("linearGradient", { id: "treeGrad", x1: "0", y1: "1", x2: "0", y2: "0" });
       [["0%", "#5f4126"], ["45%", "#8a5f34"], ["100%", "#f0b364"]].forEach(function (stop) {
         g.appendChild(el("stop", { offset: stop[0], "stop-color": stop[1] }));
       });
       defs.appendChild(g);
+
+      var lg = el("linearGradient", { id: "leafGrad", x1: "0", y1: "0", x2: "1", y2: "1" });
+      [["0%", "#8fae6b"], ["100%", "#5f7f4c"]].forEach(function (stop) {
+        lg.appendChild(el("stop", { offset: stop[0], "stop-color": stop[1] }));
+      });
+      defs.appendChild(lg);
       svg.appendChild(defs);
 
       var cx = W / 2;
-      var sway = Math.min(16, W * 0.014);       // gentle lean, like a real trunk
-      var baseY = H;                             // roots
-      var topY = 10;                             // crown
+      var baseY = H;
+      var topY = 8;
 
-      // trunk centreline as a quadratic; control point offset gives the sway
-      var t0 = { x: cx - sway * 0.35, y: baseY };
-      var t1 = { x: cx + sway, y: (baseY + topY) / 2 };
-      var t2 = { x: cx - sway * 0.15, y: topY };
+      // measure each card's attachment point, and how much room the trunk has
+      var attach = items.map(function (item) {
+        var media = item.querySelector(".work-media") || item;
+        var box = media.getBoundingClientRect();
+        var isLeft = box.left + box.width / 2 < gridBox.left + gridBox.width / 2;
+        return {
+          item: item,
+          isLeft: isLeft,
+          x: (isLeft ? box.right : box.left) - gridBox.left,
+          y: box.top + box.height / 2 - gridBox.top
+        };
+      });
 
+      var room = W;
+      attach.forEach(function (a) { room = Math.min(room, Math.abs(a.x - cx)); });
+      var amp = Math.max(18, Math.min(74, room * 0.62));   // how far the trunk may wander
+
+      // ---- wavy trunk -------------------------------------------------
+      var WAVES = 3.4, PHASE = 0.55;
+      function trunkYAt(t) { return baseY + (topY - baseY) * t; }
       function trunkXAt(y) {
-        // find t whose point is nearest this y (trunk is monotonic in y)
-        var lo = 0, hi = 1, mid, pt;
-        for (var i = 0; i < 22; i++) {
-          mid = (lo + hi) / 2;
-          pt = qPoint(t0, t1, t2, mid);
-          if (pt.y > y) lo = mid; else hi = mid;
-        }
-        return qPoint(t0, t1, t2, (lo + hi) / 2).x;
+        var t = (y - baseY) / (topY - baseY);
+        // sway eases in from the roots so the base stays planted
+        return cx + amp * Math.sin(t * Math.PI * WAVES + PHASE) * Math.min(1, t * 2.6);
       }
 
+      var trunkPts = [], i, j;
+      for (i = 0; i <= 190; i++) {
+        var tt = i / 190, yy = trunkYAt(tt);
+        trunkPts.push({ x: trunkXAt(yy), y: yy });
+      }
       svg.appendChild(el("path", {
-        d: ribbon(t0, t1, t2, Math.min(20, W * 0.016), 3, 40),
+        d: ribbonFromPoints(trunkPts, Math.min(22, W * 0.017), 2.6),
         fill: "url(#treeGrad)",
         "class": "trunk"
       }));
 
-      // --- one branch per card -----------------------------------------
-      items.forEach(function (item, i) {
-        var media = item.querySelector(".work-media") || item;
-        var box = media.getBoundingClientRect();
-        var isLeft = box.left + box.width / 2 < gridBox.left + gridBox.width / 2;
-
-        var tipY = box.top + box.height / 2 - gridBox.top;
-        var tipX = (isLeft ? box.right : box.left) - gridBox.left;
-
-        // branches leave the trunk lower down and sweep upward
-        var originY = Math.min(baseY - 6, tipY + Math.min(120, H * 0.09));
+      // ---- one wavy branch per card -----------------------------------
+      attach.forEach(function (a, idx) {
+        var originY = Math.min(baseY - 8, a.y + Math.min(130, H * 0.085));
         var originX = trunkXAt(originY);
+        var dx = a.x - originX;
+        var dy = a.y - originY;
+        var v = ((idx * 37) % 11) / 11;            // stable per-card variation
 
-        // deterministic variation so no two branches are identical
-        var v = ((i * 37) % 11) / 11;              // 0..1, stable per card
-        var bend = 0.34 + v * 0.20;                 // how early it turns outward
-        var rise = 0.68 + v * 0.22;                 // how steeply it climbs
+        // S-shaped: hugs the trunk as it rises, then sweeps out to the card
+        var p0 = { x: originX, y: originY };
+        var p1 = { x: originX + dx * (0.06 + v * 0.10), y: originY + dy * (0.50 + v * 0.12) };
+        var p2 = { x: originX + dx * (0.62 + v * 0.14), y: originY + dy * (0.62 + v * 0.10) };
+        var p3 = { x: a.x, y: a.y };
 
-        var ctrl = {
-          x: originX + (tipX - originX) * bend,
-          y: originY - (originY - tipY) * rise
-        };
-        var start = { x: originX, y: originY };
-        var tip = { x: tipX, y: tipY };
+        var pts = [], n = 46, wob = 5 + v * 5;
+        for (i = 0; i <= n; i++) {
+          var t2 = i / n;
+          var pt = cubic(p0, p1, p2, p3, t2);
+          var d2 = cubic(p0, p1, p2, p3, Math.min(1, t2 + 0.02));
+          var ddx = d2.x - pt.x, ddy = d2.y - pt.y;
+          var l2 = Math.sqrt(ddx * ddx + ddy * ddy) || 1;
+          var off = wob * Math.sin(t2 * Math.PI * 2.4 + v * 3) * (1 - t2 * 0.75);
+          pts.push({ x: pt.x + (-ddy / l2) * off, y: pt.y + (ddx / l2) * off });
+        }
 
         var path = el("path", {
-          d: ribbon(start, ctrl, tip, 8 + v * 3, 1.3, 28),
+          d: ribbonFromPoints(pts, 8 + v * 3, 1.3),
           fill: "url(#treeGrad)",
           "class": "branch"
         });
         svg.appendChild(path);
 
-        // two twigs near the tip, so it reads as growth rather than a pipe
-        [0.62, 0.82].forEach(function (at, k) {
-          var root = qPoint(start, ctrl, tip, at);
-          var dir = qTangent(start, ctrl, tip, at);
-          var len = Math.sqrt(dir.x * dir.x + dir.y * dir.y) || 1;
-          var ux = dir.x / len, uy = dir.y / len;
+        var myLeaves = [];
+
+        // twigs, angled off the branch near its tip
+        [0.58, 0.79].forEach(function (at, k) {
+          var ri = Math.round(at * n);
+          var root = pts[ri];
+          var nxt = pts[Math.min(n, ri + 1)];
+          var ux = nxt.x - root.x, uy = nxt.y - root.y;
+          var l = Math.sqrt(ux * ux + uy * uy) || 1;
+          ux /= l; uy /= l;
           var side = k === 0 ? 1 : -1;
-          var reach = 26 + k * 8;
-          var tEnd = {
-            x: root.x + ux * reach * 0.5 + -uy * side * reach * 0.75,
-            y: root.y + uy * reach * 0.5 + ux * side * reach * 0.75
+          var reach = 24 + k * 10 + v * 8;
+
+          var q3 = {
+            x: root.x + ux * reach * 0.45 + -uy * side * reach * 0.8,
+            y: root.y + uy * reach * 0.45 + ux * side * reach * 0.8
           };
-          var tCtrl = {
-            x: root.x + ux * reach * 0.45,
-            y: root.y + uy * reach * 0.45 - 6
-          };
+          var q1 = { x: root.x + ux * reach * 0.4, y: root.y + uy * reach * 0.4 - 5 };
+          var q2 = { x: (root.x + q3.x) / 2 - uy * side * 5, y: (root.y + q3.y) / 2 - 4 };
+
+          var tp = [];
+          for (j = 0; j <= 18; j++) tp.push(cubic(root, q1, q2, q3, j / 18));
           svg.appendChild(el("path", {
-            d: ribbon(root, tCtrl, tEnd, 3.2, 0.8, 14),
+            d: ribbonFromPoints(tp, 3.2, 0.7),
             fill: "url(#treeGrad)",
             "class": "twig"
           }));
+          leavesAlong(tp, 0.4, 1, 4, 15, idx + k, myLeaves);
         });
 
-        // bud where the branch meets the card
+        // leaves along the outer half of the branch
+        leavesAlong(pts, 0.34, 0.98, 10, 19, idx, myLeaves);
+        myLeaves.forEach(function (n2) { svg.appendChild(n2); });
+
         var bud = el("circle", {
-          cx: tipX.toFixed(1), cy: tipY.toFixed(1), r: 4.5,
+          cx: a.x.toFixed(1), cy: a.y.toFixed(1), r: 4.5,
           fill: "#f0b364",
           "class": "bud"
         });
         svg.appendChild(bud);
 
-        branchPaths.push({ item: item, parts: [path, bud] });
+        branchPaths.push({ item: a.item, parts: [path, bud].concat(myLeaves) });
       });
 
-      // --- crown: a few twigs finishing the top of the trunk ---
-      var crown = qPoint(t0, t1, t2, 1);
-      [[-1, 34, 20], [1, 40, 26], [-1, 22, 40]].forEach(function (c) {
+      // ---- crown twigs, with leaves ------------------------------------
+      [[-1, 34, 22], [1, 42, 30], [-1, 24, 46]].forEach(function (c, ci) {
         var side = c[0], reach = c[1], drop = c[2];
-        var root = { x: trunkXAt(topY + drop), y: topY + drop };
-        var end = { x: root.x + side * reach, y: root.y - reach * 0.85 };
-        var ctl = { x: root.x + side * reach * 0.35, y: root.y - reach * 0.7 };
+        var ry = topY + drop;
+        var root = { x: trunkXAt(ry), y: ry };
+        var q3 = { x: root.x + side * reach, y: root.y - reach * 0.9 };
+        var q1 = { x: root.x + side * reach * 0.15, y: root.y - reach * 0.5 };
+        var q2 = { x: root.x + side * reach * 0.75, y: root.y - reach * 0.55 };
+        var tp = [];
+        for (j = 0; j <= 18; j++) tp.push(cubic(root, q1, q2, q3, j / 18));
         svg.appendChild(el("path", {
-          d: ribbon(root, ctl, end, 3, 0.7, 14),
+          d: ribbonFromPoints(tp, 3, 0.7),
           fill: "url(#treeGrad)",
           "class": "twig"
         }));
+        var crownLeaves = [];
+        leavesAlong(tp, 0.35, 1, 4, 14, ci + 2, crownLeaves);
+        crownLeaves.forEach(function (n2) { svg.appendChild(n2); });
       });
 
-      // --- roots: a slight flare where the trunk meets the ground ---
-      [[-1, 46], [1, 38]].forEach(function (r) {
+      // ---- root flare --------------------------------------------------
+      [[-1, 48], [1, 40]].forEach(function (r) {
         var side = r[0], reach = r[1];
-        var root = { x: trunkXAt(baseY - 4), y: baseY - 4 };
-        var end = { x: root.x + side * reach, y: baseY + 12 };
-        var ctl = { x: root.x + side * reach * 0.5, y: baseY - 2 };
+        var root = { x: trunkXAt(baseY - 6), y: baseY - 6 };
+        var q3 = { x: root.x + side * reach, y: baseY + 14 };
+        var q1 = { x: root.x + side * reach * 0.3, y: baseY - 4 };
+        var q2 = { x: root.x + side * reach * 0.7, y: baseY + 2 };
+        var tp = [];
+        for (j = 0; j <= 16; j++) tp.push(cubic(root, q1, q2, q3, j / 16));
         svg.appendChild(el("path", {
-          d: ribbon(root, ctl, end, 9, 1.2, 14),
+          d: ribbonFromPoints(tp, 10, 1.2),
           fill: "url(#treeGrad)",
           "class": "trunk"
         }));
       });
 
-      // light the branch of whichever card is hovered
       branchPaths.forEach(function (entry) {
         entry.item.addEventListener("mouseenter", function () {
-          entry.parts.forEach(function (n) { n.classList.add("is-lit"); });
+          entry.parts.forEach(function (n2) { n2.classList.add("is-lit"); });
         });
         entry.item.addEventListener("mouseleave", function () {
-          entry.parts.forEach(function (n) { n.classList.remove("is-lit"); });
+          entry.parts.forEach(function (n2) { n2.classList.remove("is-lit"); });
         });
       });
     }
@@ -394,14 +459,12 @@
 
     scheduleDraw();
     window.addEventListener("resize", scheduleDraw);
-    // cards translate while revealing — redraw once they settle
+    window.addEventListener("load", scheduleDraw);
     grid.addEventListener("transitionend", function (e) {
       if (e.target.classList && e.target.classList.contains("work-item")) scheduleDraw();
     });
-    window.addEventListener("load", scheduleDraw);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleDraw);
     if ("ResizeObserver" in window) new ResizeObserver(scheduleDraw).observe(grid);
-    // filtering changes which cards are on screen
     document.querySelectorAll(".filter-btn").forEach(function (b) {
       b.addEventListener("click", function () { setTimeout(scheduleDraw, 30); });
     });

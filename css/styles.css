@@ -1284,7 +1284,14 @@ body.modal-open { overflow: hidden; }
   transition: opacity 0.5s ease;
 }
 .tree-canvas .branch,
-.tree-canvas .twig { opacity: 0.62; }
+.tree-canvas .twig { opacity: 0.72; }
+.tree-canvas .leaf {
+  opacity: 0.58;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+}
+.tree-canvas .leaf-gold { opacity: 0.68; }
 .tree-canvas .trunk { opacity: 0.85; }
 .tree-canvas .bud {
   transition: r 0.4s ease, opacity 0.4s ease;
@@ -1294,6 +1301,7 @@ body.modal-open { overflow: hidden; }
 /* the branch belonging to the hovered card */
 .tree-canvas .branch.is-lit,
 .tree-canvas .twig.is-lit { opacity: 1; }
+.tree-canvas .leaf.is-lit { opacity: 0.95; }
 .tree-canvas .bud.is-lit { opacity: 1; }
 
 /* ---- Cards alternate off the trunk ---- */
