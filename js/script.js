@@ -285,20 +285,4 @@
     });
   }
 
-  /* ---------------- Tree work-grid hover logic ---------------- */
-  var workGrid = document.querySelector(".work-grid");
-  if (workGrid) {
-    var workItems = workGrid.querySelectorAll(".work-item");
-
-    workItems.forEach(function (item) {
-      item.addEventListener("mouseenter", function () {
-        workGrid.classList.add("has-hover");
-        item.classList.add("is-hovered");
-      });
-      item.addEventListener("mouseleave", function () {
-        workGrid.classList.remove("has-hover");
-        item.classList.remove("is-hovered");
-      });
-    });
-  }
 })();
