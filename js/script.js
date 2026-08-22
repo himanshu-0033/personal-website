@@ -1,28 +1,9 @@
 (function () {
   "use strict";
 
-  var root = document.documentElement;
-
   // Current year in the footer
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Theme
-  var stored = localStorage.getItem("theme");
-  if (stored) root.setAttribute("data-theme", stored);
-
-  var themeBtn = document.getElementById("theme-toggle");
-  if (themeBtn) {
-    themeBtn.addEventListener("click", function () {
-      var current = root.getAttribute("data-theme");
-      var isDark = current
-        ? current === "dark"
-        : window.matchMedia("(prefers-color-scheme: dark)").matches;
-      var next = isDark ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
-  }
 
   // Mobile menu
   var menuBtn = document.getElementById("menu-toggle");
@@ -65,7 +46,7 @@
 
   // Project filter (projects.html)
   var filterBtns = document.querySelectorAll(".filter-btn");
-  var cards = document.querySelectorAll(".project-card");
+  var cards = document.querySelectorAll("[data-cat]");
   var emptyMsg = document.getElementById("grid-empty");
 
   filterBtns.forEach(function (btn) {
@@ -74,22 +55,21 @@
       btn.classList.add("active");
 
       var filter = btn.getAttribute("data-filter");
-      var visibleCount = 0;
+      var shown = 0;
       cards.forEach(function (card) {
         var show = filter === "all" || card.getAttribute("data-cat") === filter;
         card.classList.toggle("hidden", !show);
-        if (show) visibleCount++;
+        if (show) card.setAttribute("data-n", ++shown);
       });
-      if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+      if (emptyMsg) emptyMsg.hidden = shown !== 0;
     });
   });
 
   // Reveal blocks as they scroll into view
   var revealables = document.querySelectorAll("[data-reveal]");
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   if (!revealables.length) return;
 
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion || !("IntersectionObserver" in window)) {
     revealables.forEach(function (el) { el.classList.add("is-visible"); });
     return;
@@ -101,10 +81,10 @@
       entry.target.classList.add("is-visible");
       observer.unobserve(entry.target);
     });
-  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.06 });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.05 });
 
   revealables.forEach(function (el, i) {
-    el.style.transitionDelay = Math.min(i % 4, 3) * 90 + "ms";
+    el.style.transitionDelay = Math.min(i % 3, 2) * 100 + "ms";
     observer.observe(el);
   });
 })();
