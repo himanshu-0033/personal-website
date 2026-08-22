@@ -1,11 +1,13 @@
 (function () {
   "use strict";
 
+  var root = document.documentElement;
+
+  // Current year in the footer
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Theme
-  var root = document.documentElement;
   var stored = localStorage.getItem("theme");
   if (stored) root.setAttribute("data-theme", stored);
 
@@ -30,17 +32,23 @@
       var open = nav.classList.toggle("open");
       menuBtn.setAttribute("aria-expanded", open);
     });
+    nav.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        nav.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 
-  // Résumé dropdown
+  // Resume dropdown
   var resumeBtn = document.getElementById("resume-btn");
   var resumeMenu = document.getElementById("resume-menu");
 
   if (resumeBtn && resumeMenu) {
-    function closeResume() {
+    var closeResume = function () {
       resumeMenu.classList.remove("open");
       resumeBtn.setAttribute("aria-expanded", "false");
-    }
+    };
 
     resumeBtn.addEventListener("click", function (e) {
       e.stopPropagation();
@@ -55,7 +63,7 @@
     });
   }
 
-  // Project filter (projects.html only)
+  // Project filter (projects.html)
   var filterBtns = document.querySelectorAll(".filter-btn");
   var cards = document.querySelectorAll(".project-card");
   var emptyMsg = document.getElementById("grid-empty");
@@ -76,13 +84,27 @@
     });
   });
 
-  // Bento card cursor-tracked glow (home page teasers)
-  var teasers = document.querySelectorAll(".teaser");
-  teasers.forEach(function (card) {
-    card.addEventListener("mousemove", function (e) {
-      var rect = card.getBoundingClientRect();
-      card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
-      card.style.setProperty("--my", (e.clientY - rect.top) + "px");
+  // Reveal blocks as they scroll into view
+  var revealables = document.querySelectorAll("[data-reveal]");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!revealables.length) return;
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealables.forEach(function (el) { el.classList.add("is-visible"); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
     });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.06 });
+
+  revealables.forEach(function (el, i) {
+    el.style.transitionDelay = Math.min(i % 4, 3) * 90 + "ms";
+    observer.observe(el);
   });
 })();
