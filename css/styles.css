@@ -971,3 +971,454 @@ body.modal-open { overflow: hidden; }
   .modal-close:hover { transform: none; }
   .read-more::after { transition: none; }
 }
+
+/* ==========================================================
+   PREMIUM VISUAL ENHANCEMENTS
+   ========================================================== */
+
+/* ---------- Animated gradient hero name ---------- */
+.hero-name {
+  background: linear-gradient(
+    135deg,
+    var(--blue) 0%,
+    #c4b5fd 25%,
+    var(--blue) 50%,
+    #93c5fd 75%,
+    var(--blue) 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism header ---------- */
+.header-bar {
+  background: rgba(169, 205, 241, 0.18);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(169, 205, 241, 0.22);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.header-bar .wordmark,
+.header-bar .primary-nav a,
+.header-bar .menu-btn {
+  color: var(--text);
+}
+.primary-nav a::after {
+  background: var(--text);
+}
+
+/* ---------- Glowing CTA button ---------- */
+.btn-blue {
+  position: relative;
+  background: linear-gradient(135deg, var(--blue) 0%, #93c5fd 50%, var(--blue-deep) 100%);
+  background-size: 200% 200%;
+  animation: btnGradient 4s ease infinite;
+  box-shadow: 0 0 20px rgba(169, 205, 241, 0.25), 0 0 60px rgba(169, 205, 241, 0.08);
+  transition: box-shadow 0.4s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-blue:hover {
+  background: #fff;
+  box-shadow: 0 0 30px rgba(169, 205, 241, 0.5), 0 0 80px rgba(169, 205, 241, 0.2), 0 14px 28px -16px rgba(0, 0, 0, 0.9);
+}
+.btn-blue::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--blue), #c4b5fd, var(--blue));
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+  z-index: -1;
+  opacity: 0.5;
+  filter: blur(12px);
+  transition: opacity 0.4s ease;
+}
+.btn-blue:hover::before {
+  opacity: 0.8;
+}
+
+@keyframes btnGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Enhanced work cards — gradient border on hover ---------- */
+.work-visual {
+  position: relative;
+  overflow: hidden;
+}
+.work-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(169, 205, 241, 0.4) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 400% 400%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.work-item:hover::before {
+  opacity: 1;
+  animation: borderSweep 2s linear infinite;
+}
+.work-item:hover .work-visual {
+  box-shadow:
+    0 34px 70px -34px rgba(0, 0, 0, 0.9),
+    inset 0 0 30px rgba(169, 205, 241, 0.04);
+}
+
+@keyframes borderSweep {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ---------- Particle canvas ---------- */
+#particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.hero-inner { z-index: 3; }
+.hero-media { z-index: 0; }
+
+/* ---------- Cinematic scanline overlay ---------- */
+.hero-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Gradient section dividers ---------- */
+.band + .band::before,
+.band + .site-footer::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--blue) 20%,
+    var(--amber) 50%,
+    var(--blue) 80%,
+    transparent 100%
+  );
+  opacity: 0.3;
+}
+
+/* ---------- Smoother reveal animations ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(4px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* ---------- Ambient glow behind about image ---------- */
+.about-figure {
+  position: relative;
+}
+.about-figure::before {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  background: radial-gradient(circle, rgba(169, 205, 241, 0.2) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.about-figure:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Reel panel glow ---------- */
+.reel-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(233, 160, 92, 0.15), transparent 40%, transparent 60%, rgba(169, 205, 241, 0.15));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.reel-panel:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Footer name glow ---------- */
+.footer-name {
+  background: linear-gradient(135deg, var(--blue), #c4b5fd, var(--blue));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* ---------- Glowing social icons ---------- */
+.socials a:hover {
+  box-shadow: 0 0 16px rgba(169, 205, 241, 0.3);
+}
+
+/* ---------- Hero scroll indicator animation ---------- */
+.hero-scroll .line {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { width: 56px; opacity: 1; }
+  50% { width: 36px; opacity: 0.5; }
+}
+
+/* ---------- Premium reduced-motion overrides ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-name,
+  .footer-name,
+  .btn-blue { animation: none; background-size: 100% 100%; }
+  .btn-blue::before { animation: none; }
+  .hero-scroll .line { animation: none; }
+  [data-reveal] { filter: none; transition: none; }
+  .work-item:hover::before { animation: none; }
+}
+
+/* ==========================================================
+   TREE WORK GRID
+   Cards start faded and spread apart like dormant branches.
+   On hover the tree "wakes up" — cards converge and clarify.
+   Hovering a specific card pops it out, dimming the rest.
+   ========================================================== */
+
+.work-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 4vw, 56px);
+  position: relative;
+  padding: 50px 0;
+}
+
+/* ---- Central trunk line ---- */
+.work-grid::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--blue) 8%,
+    var(--amber) 50%,
+    var(--blue) 92%,
+    transparent 100%
+  );
+  opacity: 0.15;
+  transform: translateX(-50%);
+  z-index: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Trunk brightens on hover */
+.work-grid:hover::after {
+  opacity: 0.55;
+}
+
+/* ---- Tree items: FADED + SPREAD by default ---- */
+.work-grid .work-item {
+  width: 44%;
+  z-index: 1;
+  opacity: 0.3;
+  filter: blur(2px) saturate(0.4);
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+
+/* Odd cards → far left */
+.work-grid .work-item:nth-child(odd) {
+  align-self: flex-start;
+  transform: translateX(-50px);
+  padding-top: 0;
+}
+
+/* Even cards → far right */
+.work-grid .work-item:nth-child(even) {
+  align-self: flex-end;
+  transform: translateX(50px);
+  padding-top: 0;
+}
+
+/* ---- Branch connector stubs ---- */
+.work-grid .work-item::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition:
+    width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
+}
+
+.work-grid .work-item:nth-child(odd)::after {
+  left: 100%;
+  background: linear-gradient(90deg, rgba(169,205,241,0.4), rgba(233,160,92,0.3));
+}
+
+.work-grid .work-item:nth-child(even)::after {
+  right: 100%;
+  background: linear-gradient(270deg, rgba(169,205,241,0.4), rgba(233,160,92,0.3));
+}
+
+/* ---- ON GRID HOVER: wake up — converge + clear ---- */
+.work-grid:hover .work-item {
+  opacity: 1;
+  filter: blur(0) saturate(1);
+}
+
+.work-grid:hover .work-item:nth-child(odd) {
+  transform: translateX(0);
+}
+
+.work-grid:hover .work-item:nth-child(even) {
+  transform: translateX(0);
+}
+
+/* Branches grow on hover */
+.work-grid:hover .work-item::after {
+  width: 14%;
+  opacity: 1;
+}
+
+/* ---- ON SPECIFIC CARD HOVER: pop out, dim siblings ---- */
+.work-grid.has-hover .work-item {
+  opacity: 0.25;
+  filter: blur(2.5px) saturate(0.4);
+}
+
+.work-grid.has-hover .work-item.is-hovered {
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  z-index: 10;
+}
+
+.work-grid.has-hover .work-item.is-hovered:nth-child(odd) {
+  transform: scale(1.07) translateX(14px);
+}
+
+.work-grid.has-hover .work-item.is-hovered:nth-child(even) {
+  transform: scale(1.07) translateX(-14px);
+}
+
+/* Glow on the popped card */
+.work-grid.has-hover .work-item.is-hovered .work-visual {
+  box-shadow:
+    0 0 50px rgba(169, 205, 241, 0.18),
+    0 30px 60px -20px rgba(0, 0, 0, 0.85);
+  border-color: rgba(169, 205, 241, 0.45);
+}
+
+/* Hovered card's branch stays bright */
+.work-grid.has-hover .work-item.is-hovered::after {
+  opacity: 1;
+  width: 14%;
+}
+
+.work-grid.has-hover .work-item:not(.is-hovered)::after {
+  opacity: 0.2;
+}
+
+/* ---- Mobile: collapse tree to stack ---- */
+@media (max-width: 820px) {
+  .work-grid {
+    gap: clamp(28px, 5vw, 48px);
+    padding: 0;
+  }
+  .work-grid::after {
+    display: none;
+  }
+  .work-grid .work-item {
+    width: 100%;
+    opacity: 1;
+    filter: none;
+  }
+  .work-grid .work-item:nth-child(odd),
+  .work-grid .work-item:nth-child(even) {
+    align-self: stretch;
+    transform: none;
+    padding-top: 0;
+  }
+  .work-grid .work-item::after {
+    display: none;
+  }
+  .work-grid:hover .work-item {
+    opacity: 1;
+    filter: none;
+  }
+  .work-grid.has-hover .work-item,
+  .work-grid.has-hover .work-item.is-hovered {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  .work-grid.has-hover .work-item.is-hovered:nth-child(odd),
+  .work-grid.has-hover .work-item.is-hovered:nth-child(even) {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-grid .work-item { transition: none; opacity: 1; filter: none; }
+  .work-grid .work-item:nth-child(odd),
+  .work-grid .work-item:nth-child(even) { transform: none; }
+  .work-grid .work-item::after { transition: none; }
+  .work-grid::after { transition: none; }
+}
+

@@ -198,4 +198,107 @@
     el.style.transitionDelay = Math.min(i % 3, 2) * 100 + "ms";
     observer.observe(el);
   });
+
+  /* ---------------- Particle canvas (hero) ---------------- */
+  var canvas = document.getElementById("particles");
+  if (canvas) {
+    var ctx = canvas.getContext("2d");
+    var particles = [];
+    var PARTICLE_COUNT = 60;
+    var mouseX = 0.5;
+    var mouseY = 0.5;
+
+    function resizeCanvas() {
+      var hero = canvas.parentElement;
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.4,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.5 + 0.15
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var j = 0; j < particles.length; j++) {
+        var p = particles[j];
+        p.x += p.dx;
+        p.y += p.dy;
+
+        // wrap around edges
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(169, 205, 241, " + p.alpha + ")";
+        ctx.fill();
+      }
+
+      // draw faint connection lines between nearby particles
+      for (var a = 0; a < particles.length; a++) {
+        for (var b = a + 1; b < particles.length; b++) {
+          var distX = particles[a].x - particles[b].x;
+          var distY = particles[a].y - particles[b].y;
+          var dist = Math.sqrt(distX * distX + distY * distY);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.strokeStyle = "rgba(169, 205, 241, " + (0.06 * (1 - dist / 120)) + ")";
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  }
+
+  /* ---------------- Parallax on hero name ---------------- */
+  var heroName = document.querySelector(".hero-name");
+  var hero = document.querySelector(".hero");
+  if (heroName && hero) {
+    hero.addEventListener("mousemove", function (e) {
+      var rect = hero.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      heroName.style.transform = "translate(" + (x * 12) + "px, " + (y * 8) + "px)";
+    });
+    hero.addEventListener("mouseleave", function () {
+      heroName.style.transition = "transform 0.6s ease";
+      heroName.style.transform = "translate(0, 0)";
+      setTimeout(function () { heroName.style.transition = ""; }, 600);
+    });
+  }
+
+  /* ---------------- Tree work-grid hover logic ---------------- */
+  var workGrid = document.querySelector(".work-grid");
+  if (workGrid) {
+    var workItems = workGrid.querySelectorAll(".work-item");
+
+    workItems.forEach(function (item) {
+      item.addEventListener("mouseenter", function () {
+        workGrid.classList.add("has-hover");
+        item.classList.add("is-hovered");
+      });
+      item.addEventListener("mouseleave", function () {
+        workGrid.classList.remove("has-hover");
+        item.classList.remove("is-hovered");
+      });
+    });
+  }
 })();
