@@ -148,16 +148,18 @@
       <a href="education.html">Education</a>
       <a href="contact.html">Contact</a>
     </nav>
-
-    <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Himanshu Malik &mdash; written by hand in HTML, CSS and JavaScript.</p>
-      <span class="footer-badge">
-        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><polygon points="12 3 22 20 2 20"/></svg>
-        Deployed on Vercel
-      </span>
-    </div>
   </div>
 </footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <button class="modal-close" type="button" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-scroll" id="modal-content"></div>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

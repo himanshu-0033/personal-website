@@ -126,7 +126,7 @@
       </div>
 
       <div class="work-grid">
-        <a class="work-item" href="projects.html" data-reveal>
+        <a class="work-item" href="projects.html#supermarket" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">01</span></div>
           <div class="work-caption">
             <div>
@@ -136,7 +136,7 @@
             <span class="work-index">01</span>
           </div>
         </a>
-        <a class="work-item" href="projects.html" data-reveal>
+        <a class="work-item" href="projects.html#zepto" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Data</span><span class="ghost">02</span></div>
           <div class="work-caption">
             <div>
@@ -146,7 +146,7 @@
             <span class="work-index">02</span>
           </div>
         </a>
-        <a class="work-item" href="projects.html" data-reveal>
+        <a class="work-item" href="projects.html#weather" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">03</span></div>
           <div class="work-caption">
             <div>
@@ -156,7 +156,7 @@
             <span class="work-index">03</span>
           </div>
         </a>
-        <a class="work-item" href="projects.html" data-reveal>
+        <a class="work-item" href="projects.html#dreamhome" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Product</span><span class="ghost">04</span></div>
           <div class="work-caption">
             <div>
@@ -171,7 +171,7 @@
   </section>
 
   <!-- ============ HIGHLIGHT / REEL ============ -->
-  <section class="band reel">
+  <section class="band band-warm reel">
     <div class="wrap">
       <div class="band-head" data-reveal>
         <div>
@@ -309,16 +309,18 @@
       <a href="education.html">Education</a>
       <a href="contact.html">Contact</a>
     </nav>
-
-    <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Himanshu Malik &mdash; written by hand in HTML, CSS and JavaScript.</p>
-      <span class="footer-badge">
-        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><polygon points="12 3 22 20 2 20"/></svg>
-        Deployed on Vercel
-      </span>
-    </div>
   </div>
 </footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <button class="modal-close" type="button" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-scroll" id="modal-content"></div>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

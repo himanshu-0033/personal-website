@@ -40,7 +40,7 @@
     <div class="wrap">
       <span class="script script-blue">Selected work</span>
       <h1 class="h-xl">Projects</h1>
-      <p class="lede">Personal builds and coursework. Filter by the kind of work.</p>
+      <p class="lede">Personal builds and coursework. Filter by the kind of work, and open any one to read how it actually went.</p>
     </div>
   </section>
 
@@ -55,7 +55,7 @@
 
       <div class="work-grid" id="project-grid">
 
-        <article class="work-item" data-cat="dev" data-reveal>
+        <article class="work-item" data-cat="dev" data-modal="weather" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">01</span></div>
           <div class="work-caption">
             <div>
@@ -69,9 +69,10 @@
             <li>Pulls location-based conditions from a REST API and refreshes in place.</li>
             <li>Handles slow and dropped connections without leaving the UI in a broken state.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="weather">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="dev" data-reveal>
+        <article class="work-item" data-cat="dev" data-modal="supermarket" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">02</span></div>
           <div class="work-caption">
             <div>
@@ -85,9 +86,10 @@
             <li>Authentication plus a billing screen built for speed at the counter.</li>
             <li>Dashboard reading from a relational schema so the sales numbers stay consistent.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="supermarket">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="data" data-reveal>
+        <article class="work-item" data-cat="data" data-modal="zepto" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Data</span><span class="ghost">03</span></div>
           <div class="work-caption">
             <div>
@@ -101,9 +103,10 @@
             <li>Used joins, window functions and aggregations to get at per-SKU performance.</li>
             <li>Traced stock discrepancies back to specific gaps in restocking.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="zepto">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="data" data-reveal>
+        <article class="work-item" data-cat="data" data-modal="zomato" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Data</span><span class="ghost">04</span></div>
           <div class="work-caption">
             <div>
@@ -117,9 +120,10 @@
             <li>Charted the findings in Matplotlib and Seaborn.</li>
             <li>Looked for correlations between location, average cost and customer satisfaction.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="zomato">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="data" data-reveal>
+        <article class="work-item" data-cat="data" data-modal="inference" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Data</span><span class="ghost">05</span></div>
           <div class="work-caption">
             <div>
@@ -133,9 +137,10 @@
             <li>Assessed estimator efficiency with the Cram&eacute;r&ndash;Rao bound and Karlin&ndash;Rubin theorem.</li>
             <li>Wrote the code to run the derivations numerically and plot the results.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="inference">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="product" data-reveal>
+        <article class="work-item" data-cat="product" data-modal="dreamhome" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Product</span><span class="ghost">06</span></div>
           <div class="work-caption">
             <div>
@@ -149,9 +154,10 @@
             <li>Designed the branding and the community space where users would gather.</li>
             <li>Wrote the full business plan and pitched it as a viable venture.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="dreamhome">Read the write-up</button>
         </article>
 
-        <article class="work-item" data-cat="product" data-reveal>
+        <article class="work-item" data-cat="product" data-modal="sih" data-reveal>
           <div class="work-visual"><span class="hud work-cat">Product</span><span class="ghost">07</span></div>
           <div class="work-caption">
             <div>
@@ -165,6 +171,7 @@
             <li>Framed the solution around the constraints the government brief actually set.</li>
             <li>Cut the technical detail down to something a mixed panel could follow.</li>
           </ul>
+          <button class="read-more" type="button" data-modal="sih">Read the write-up</button>
         </article>
 
       </div>
@@ -172,6 +179,362 @@
       <p class="grid-empty" id="grid-empty" hidden>Nothing in this category yet.</p>
     </div>
   </section>
+
+  <!-- ================= WRITE-UPS ================= -->
+
+  <template id="post-weather">
+    <article class="post">
+      <p class="post-kicker"><span>Development</span><span>June 2026</span><span>Personal build</span></p>
+      <h2 class="h-lg">Weather application</h2>
+      <p class="post-lede">The campus forecast was useless, so I built something I would actually check before walking out of the hall.</p>
+
+      <h3>Why I built it</h3>
+      <p>
+        Kharagpur weather turns fast. The difference between leaving at four and leaving at half past
+        matters if you are walking to a department fifteen minutes away, and the sites I was checking
+        either buried the useful number under an advertisement or gave me a daily summary when what I
+        needed was the next three hours. I wanted one screen that answered one question: do I leave now.
+      </p>
+
+      <h3>What it does</h3>
+      <p>
+        It pulls current conditions and a short-range forecast for a location from a REST API and renders
+        them in place, without a full page reload when the data refreshes. The whole thing is built
+        mobile-first, because a phone is the only screen I would ever actually use it on.
+      </p>
+      <p>
+        The design problem turned out to be harder than the data problem. Meteorological responses carry a
+        lot of fields &mdash; temperature, feels-like, humidity, wind speed and direction, precipitation
+        probability, hourly breakdowns &mdash; and putting all of it on a phone screen makes it useless.
+        Most of my time went into deciding what to show at a glance and what to demote.
+      </p>
+
+      <h3>The part that took longest</h3>
+      <p>
+        Network failure. Campus wifi drops constantly, and my first version handled that the way most
+        student projects do: it did not. A dropped request left a spinner running forever, and a slow one
+        left stale numbers on screen with nothing to indicate they were stale.
+      </p>
+      <p class="post-pull">
+        Getting the unhappy path right took longer than building the happy path, and it is the single
+        thing that made the app feel finished rather than demoed.
+      </p>
+      <p>
+        So I rebuilt around the failure cases: an explicit loading state, a timeout, a readable error
+        instead of a blank card, and a retry that does not lose the location you already chose. The UI
+        never ends up in a state where you cannot tell what it is showing you.
+      </p>
+
+      <h3>What I would change</h3>
+      <p>
+        I would cache the last successful response so a cold start with no connection shows something
+        rather than nothing, and I would add a proper location search instead of leaning on one source
+        for coordinates.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>JavaScript</span></li><li><span>REST API</span></li><li><span>Responsive UI</span></li><li><span>Error handling</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-supermarket">
+    <article class="post">
+      <p class="post-kicker"><span>Development</span><span>May 2026</span><span>Full-stack</span></p>
+      <h2 class="h-lg">Supermarket management system</h2>
+      <p class="post-lede">A shop near home was running an entire day of trade on a notebook and a calculator.</p>
+
+      <h3>The problem</h3>
+      <p>
+        Every evening the owner reconciled the day by hand. Stock was whatever he remembered, and finding
+        out how a particular product had done over a month was not a question anyone could answer without
+        an hour of flipping pages. Nothing about it was broken, exactly &mdash; it just cost him time he
+        was not counting.
+      </p>
+
+      <h3>The schema came first</h3>
+      <p>
+        I spent the first stretch of this project not writing any application code. Products, stock levels,
+        transactions and line items all have to relate correctly or every number downstream is wrong, and I
+        had already learned that a schema you patch later is a schema that quietly lies to you. Getting the
+        relational design settled meant the dashboard could read straight from it and always agree with the
+        billing screen.
+      </p>
+
+      <h3>Built for the counter, not for a demo</h3>
+      <p>
+        The billing screen has one requirement that overrides everything else: it has to be fast with a
+        queue of people waiting. That constraint drove most of the decisions &mdash; keyboard-first entry,
+        no confirmation dialogs in the middle of a sale, running totals that update as you go.
+      </p>
+      <ul>
+        <li>Backend tracking a large catalogue and each day's transactions.</li>
+        <li>Authentication, so takings are tied to whoever was on the counter.</li>
+        <li>A dashboard reading from the same schema the till writes to.</li>
+      </ul>
+      <p class="post-pull">
+        A feature that is correct but slow at the counter is a feature that gets abandoned by the second
+        day. Speed was not polish here; it was the requirement.
+      </p>
+
+      <h3>What I took from it</h3>
+      <p>
+        This is the project that taught me the difference between software that works and software someone
+        will use. The technical part was ordinary CRUD. The hard part was watching how the work actually
+        happened and shaping the screens around that, rather than around what was convenient to build.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>Python</span></li><li><span>PostgreSQL</span></li><li><span>Authentication</span></li><li><span>Schema design</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-zepto">
+    <article class="post">
+      <p class="post-kicker"><span>Data</span><span>May 2026</span><span>SQL</span></p>
+      <h2 class="h-lg">Zepto inventory analysis</h2>
+      <p class="post-lede">Quick commerce lives or dies on whether the thing you ordered is actually on the shelf.</p>
+
+      <h3>Why this dataset</h3>
+      <p>
+        Ten-minute delivery is an inventory problem wearing a logistics costume. The promise only holds if
+        the right stock sits in the right store at the right moment, which makes it a good thing to practise
+        on: the questions are commercially real and the answers are checkable.
+      </p>
+
+      <h3>Loading it properly first</h3>
+      <p>
+        The raw dumps were not analysis-ready. Before writing a single interesting query I designed the
+        PostgreSQL schema to hold them, with the types and keys the data actually needed rather than loading
+        everything as text and casting later. That is unglamorous work, and it is the reason the queries
+        afterwards were short instead of full of defensive cleaning.
+      </p>
+
+      <h3>Getting to per-SKU performance</h3>
+      <p>
+        The useful questions all turned out to need window functions rather than plain aggregation &mdash;
+        ranking products within a category, comparing a SKU against its own history, looking at movement
+        over a rolling period rather than one total. Joins and grouping get you a leaderboard; window
+        functions get you the behaviour behind it.
+      </p>
+
+      <h3>What the discrepancies were hiding</h3>
+      <p>
+        The finding I cared about most was not a ranking. Stock discrepancies that looked random at the
+        product level stopped looking random once I traced them back &mdash; they clustered around specific
+        gaps in restocking rather than spreading evenly across the catalogue.
+      </p>
+      <p class="post-pull">
+        A discrepancy is only interesting once you can say where it came from. Until then it is just a
+        number that does not reconcile.
+      </p>
+
+      <h3>What I would do next</h3>
+      <p>
+        Push it past description into something predictive &mdash; flagging the SKUs most likely to go out
+        of stock next, rather than reporting the ones that already did.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>PostgreSQL</span></li><li><span>Window functions</span></li><li><span>Schema design</span></li><li><span>Inventory</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-zomato">
+    <article class="post">
+      <p class="post-kicker"><span>Data</span><span>June 2026</span><span>Exploratory analysis</span></p>
+      <h2 class="h-lg">Zomato ratings &amp; pricing</h2>
+      <p class="post-lede">What actually moves a restaurant's rating &mdash; and how much of it is just the neighbourhood it sits in.</p>
+
+      <h3>The question</h3>
+      <p>
+        Ratings and price both look like simple numbers and neither behaves simply. I wanted to know whether
+        where a restaurant is, and what it charges, tells you anything reliable about how people rate it.
+      </p>
+
+      <h3>Most of the work was cleaning</h3>
+      <p>
+        The public dataset was messy in every ordinary way: missing values, costs stored as strings with
+        separators inside them, duplicated listings, categories that disagreed with themselves. Handling
+        that in Pandas was the bulk of the project, and the decisions in it matter more than they look.
+        Dropping rows with missing ratings is not neutral &mdash; if newer or smaller restaurants are the
+        ones missing ratings, you have quietly changed the population you are describing.
+      </p>
+      <p class="post-pull">
+        Every cleaning decision is an assumption about the world. I tried to write mine down rather than let
+        them hide inside a one-line drop.
+      </p>
+
+      <h3>What came out</h3>
+      <p>
+        I charted the relationships in Matplotlib and Seaborn, looking at location, average cost and
+        customer satisfaction together. There are real correlations there, and they are weaker than the
+        confident version of this analysis you see posted online. Cost explains some of the variance in
+        rating. It does not explain most of it.
+      </p>
+
+      <h3>The part I was careful about</h3>
+      <p>
+        It would have been easy to write "expensive restaurants are rated higher" and move on. But rating
+        populations differ by area, expensive places attract a different reviewer, and none of this is a
+        controlled comparison. I kept the conclusions descriptive on purpose. Saying what the data shows,
+        and refusing to say what it does not, is most of what the statistics coursework has actually taught
+        me.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>Pandas</span></li><li><span>Matplotlib</span></li><li><span>Seaborn</span></li><li><span>Data cleaning</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-inference">
+    <article class="post">
+      <p class="post-kicker"><span>Data</span><span>Spring 2026</span><span>IIT Kharagpur coursework</span></p>
+      <h2 class="h-lg">Statistical inference term project</h2>
+      <p class="post-lede">The course that turned statistics from a set of recipes into something I could reason about.</p>
+
+      <h3>The course</h3>
+      <p>
+        This was a term project under Prof. Anikit Biswas at IIT Kharagpur, and it is the piece of
+        coursework that most changed how I work. Before it I could run a test. After it I could say why
+        that test and not another one, and what it would cost me to be wrong.
+      </p>
+
+      <h3>Building the tests rather than calling them</h3>
+      <p>
+        The project worked through hypothesis testing from the ground up &mdash; constructing likelihood
+        ratio tests, and using the Neyman&ndash;Pearson lemma to justify why a particular test is the most
+        powerful one available at a given size. Deriving that is a different experience from importing a
+        function that performs it.
+      </p>
+      <p>
+        The estimation half went through efficiency: the Cram&eacute;r&ndash;Rao bound as a floor on the
+        variance of an unbiased estimator, and the Karlin&ndash;Rubin theorem for families with a monotone
+        likelihood ratio. These are the results that tell you when you are finished &mdash; when an
+        estimator cannot be improved on, rather than when you have run out of ideas.
+      </p>
+
+      <h3>Where the code came in</h3>
+      <p>
+        I wrote code to run the derivations numerically and plot the results, which is where the theory
+        stopped being abstract. Watching a power curve move as the sample size changes, or seeing an
+        estimator's variance sit against its theoretical bound, made the algebra mean something.
+      </p>
+      <p class="post-pull">
+        This is the coursework I point at when someone asks why a chemistry undergraduate is applying for
+        data roles. The reasoning underneath the tools came from here.
+      </p>
+
+      <h3>What it changed</h3>
+      <p>
+        It made me slower in a useful way. I am now much more reluctant to report an effect without asking
+        what test would detect it, how much power I have, and what the result would look like if the effect
+        were not there at all.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>Statistical inference</span></li><li><span>Hypothesis testing</span></li><li><span>Python</span></li><li><span>IIT Kharagpur</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-dreamhome">
+    <article class="post">
+      <p class="post-kicker"><span>Product</span><span>Autumn 2025</span><span>Entrepreneurship course</span></p>
+      <h2 class="h-lg">Dream Home Solutions</h2>
+      <p class="post-lede">A business model for digital property and community management &mdash; written to be defended, not just described.</p>
+
+      <h3>The brief</h3>
+      <p>
+        This came out of my entrepreneurship elective, where the deliverable was a complete business plan
+        rather than a product demo. That constraint changed what mattered. Nobody was going to be impressed
+        by a feature list; the questions were going to be about who pays, why, and whether we could reach
+        them at all.
+      </p>
+
+      <h3>Sizing it honestly</h3>
+      <p>
+        The temptation in any market sizing exercise is to quote the largest number you can defend and stop
+        there. Property management in India is enormous, and that figure is useless &mdash; we were never
+        going to serve most of it. The work that mattered was cutting it down: which segment, in which
+        cities, reachable through which channel, at what cost.
+      </p>
+      <p class="post-pull">
+        The addressable market is the number you can act on. The total market is the number you put on a
+        slide when you have not done the thinking.
+      </p>
+
+      <h3>Branding and the community layer</h3>
+      <p>
+        I designed the branding and the community space where users would actually gather. Property
+        management sounds like a pure utility, but the retention story is social: residents who have
+        somewhere to raise problems, coordinate and be heard stay in a way that people using a payments
+        portal do not.
+      </p>
+
+      <h3>Pitching it</h3>
+      <p>
+        I wrote the plan and pitched it as a venture. The most useful part was defending the assumptions out
+        loud. Numbers that felt solid in a spreadsheet turned out to rest on one optimistic conversion rate,
+        and being asked about it directly is a faster way to find that than checking your own work.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>Market research</span></li><li><span>Business model</span></li><li><span>Branding</span></li><li><span>Pitching</span></li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="post-sih">
+    <article class="post">
+      <p class="post-kicker"><span>Product</span><span>January 2026</span><span>Team The Outliers</span></p>
+      <h2 class="h-lg">Smart India Hackathon</h2>
+      <p class="post-lede">A government problem statement, a mixed panel, and a short window to make a technical argument land.</p>
+
+      <h3>The setup</h3>
+      <p>
+        The Smart India Hackathon runs on real problem statements posed by ministries and industry. Our
+        team, The Outliers, took one on and I authored the idea presentation &mdash; the architecture, the
+        technical feasibility, and the case for why our approach was the right one.
+      </p>
+
+      <h3>Reading the brief as a constraint, not a prompt</h3>
+      <p>
+        The mistake I watched other teams make was treating the problem statement as a theme and building
+        whatever was most impressive nearby. These briefs are specific: they name who the user is, what the
+        existing process looks like, and what the solution has to work alongside. A cleverer system that
+        ignores those constraints is not a better answer, it is an answer to a different question.
+      </p>
+      <p>
+        So we framed the solution around what the brief actually set, and I made the architecture section
+        show that explicitly rather than leaving the panel to infer it.
+      </p>
+
+      <h3>Cutting it down for the panel</h3>
+      <p>
+        The panel was mixed &mdash; some deeply technical, some not at all. My first draft was written for
+        the technical half and would have lost the rest. Rewriting it meant deciding which details carried
+        the argument and which were only evidence that we had done the work.
+      </p>
+      <p class="post-pull">
+        Detail you cannot explain in a sentence is detail that costs you the room. Most of the editing was
+        deletion.
+      </p>
+
+      <h3>What I kept</h3>
+      <p>
+        The habit of writing the technical case for the person who has to approve it, not for the person who
+        built it. That has been more useful to me since than anything specific to the hackathon.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>Solution design</span></li><li><span>Architecture</span></li><li><span>Presenting</span></li><li><span>Feasibility</span></li>
+      </ul>
+    </article>
+  </template>
 
 </main>
 
@@ -219,16 +582,18 @@
       <a href="education.html">Education</a>
       <a href="contact.html">Contact</a>
     </nav>
-
-    <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Himanshu Malik &mdash; written by hand in HTML, CSS and JavaScript.</p>
-      <span class="footer-badge">
-        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><polygon points="12 3 22 20 2 20"/></svg>
-        Deployed on Vercel
-      </span>
-    </div>
   </div>
 </footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <button class="modal-close" type="button" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-scroll" id="modal-content"></div>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

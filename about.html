@@ -74,6 +74,7 @@
           Outside of that: I play kho-kho and badminton, swim when the pool is open, sing badly but often,
           and I mentor JEE aspirants through the Dakshana alumni network.
         </p>
+        <button class="read-more" type="button" data-modal="kgp">Read: two years at IIT Kharagpur</button>
       </div>
     </div>
   </section>
@@ -170,6 +171,65 @@
     </div>
   </section>
 
+  <!-- ================= WRITE-UP ================= -->
+
+  <template id="post-kgp">
+    <article class="post">
+      <p class="post-kicker"><span>Campus</span><span>2024 &ndash; present</span><span>IIT Kharagpur</span></p>
+      <h2 class="h-lg">Two years at IIT Kharagpur</h2>
+      <p class="post-lede">What actually happens between the entrance exam everyone talks about and the degree nobody asks about.</p>
+
+      <h3>Getting here</h3>
+      <p>
+        I came through the Jawahar Navodaya Vidyalaya system and the Dakshana scholarship. Both matter to
+        the story, because neither is the standard route. JNV took me out of a district school; Dakshana
+        funded the JEE preparation that would otherwise have been out of reach. I did not grow up around
+        computers, and I want that on the record rather than quietly edited out &mdash; everything technical
+        on this site was learned after I arrived.
+      </p>
+
+      <h3>The department, and everything next to it</h3>
+      <p>
+        I read B.S. (Hons.) Chemistry, and I chose it. But the honest version is that most of what I build
+        sits next to my department rather than inside it. The electives did a lot of the work: programming
+        and data structures, probability and statistics, linear algebra, and the statistical inference course
+        that changed how I think about evidence.
+      </p>
+      <p class="post-pull">
+        Kharagpur is unusually relaxed about this. Nobody stopped me taking machine learning courses as a
+        chemistry undergraduate, and nobody found it strange that I entered a data analytics competition.
+      </p>
+
+      <h3>Where the real learning happened</h3>
+      <p>
+        The coursework gives you foundations. The rest came from the cells and competitions &mdash; the
+        AA-X Alumni Cell web team, where I shipped against a deadline that could not move, and Open IIT,
+        where I won gold in the data analytics event. Those had something coursework structurally cannot
+        offer: other people depending on the output, and a result you cannot argue with afterwards.
+      </p>
+
+      <h3>Halls, and the rest of it</h3>
+      <p>
+        Hall life is most of the actual experience here and almost none of what appears on a resume. I
+        helped build the large traditional diya wire structures for Illumination with my hall &mdash; days
+        of work by a lot of people for a display that lasts one night, and one of the better things I have
+        been part of. Outside that: kho-kho, badminton, swimming when the pool is open, and singing badly
+        but often.
+      </p>
+
+      <h3>What I have not resolved</h3>
+      <p>
+        I still do not know whether I want to go deepest in software, data, or product, which is why I keep
+        three resumes instead of pretending the question is settled. Two years in, that feels more honest
+        than a tidier answer would be.
+      </p>
+
+      <ul class="post-tags">
+        <li><span>IIT Kharagpur</span></li><li><span>Dakshana</span></li><li><span>Navodaya</span></li><li><span>Chemistry</span></li>
+      </ul>
+    </article>
+  </template>
+
 </main>
 
 <footer class="site-footer">
@@ -216,16 +276,18 @@
       <a href="education.html">Education</a>
       <a href="contact.html">Contact</a>
     </nav>
-
-    <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Himanshu Malik &mdash; written by hand in HTML, CSS and JavaScript.</p>
-      <span class="footer-badge">
-        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><polygon points="12 3 22 20 2 20"/></svg>
-        Deployed on Vercel
-      </span>
-    </div>
   </div>
 </footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <button class="modal-close" type="button" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-scroll" id="modal-content"></div>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>
