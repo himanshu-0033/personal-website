@@ -15,26 +15,26 @@ dl, dd, dt { margin: 0; }
 
 /* ---------- Tokens ---------- */
 :root {
-  /* ground: deep ink with a cool cast, warmer for the highlight band */
-  --bg:        #14161a;
-  --bg-2:      #191d23;
-  --bg-3:      #222831;
-  --bg-warm:   #1f1813;
+  /* ground: rich navy with depth */
+  --bg:        #0c0e14;
+  --bg-2:      #111520;
+  --bg-3:      #1a1f2e;
+  --bg-warm:   #1a1410;
 
-  /* primary accent — carried from the header bar through to the big panel */
-  --blue:      #a9cdf1;
-  --blue-deep: #7fb0e0;
+  /* primary accent — electric cyan-blue for high contrast */
+  --blue:      #64b5f6;
+  --blue-deep: #42a5f5;
 
-  /* counterpoint — small warm marks so the page is not all one hue */
-  --amber:     #e9a05c;
-  --amber-dim: rgba(233, 160, 92, 0.42);
+  /* counterpoint — warm gold for premium feel */
+  --amber:     #f0b364;
+  --amber-dim: rgba(240, 179, 100, 0.42);
 
-  --on-blue:   #12161b;
+  --on-blue:   #0a0d12;
 
-  --text:      #f2f4f6;
-  --muted:     rgba(242, 244, 246, 0.68);
-  --faint:     rgba(242, 244, 246, 0.50);
-  --line:      rgba(242, 244, 246, 0.16);
+  --text:      #eef1f5;
+  --muted:     rgba(238, 241, 245, 0.7);
+  --faint:     rgba(238, 241, 245, 0.50);
+  --line:      rgba(238, 241, 245, 0.14);
 
   --sans:    'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --display: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, serif;
@@ -249,14 +249,28 @@ body {
 
 /* ---------- Sections ---------- */
 .band { padding: clamp(74px, 11vw, 150px) 0; }
-.band-blue { background: var(--blue); color: var(--on-blue); }
+.band-blue {
+  background: linear-gradient(135deg, #1a2744 0%, #1e3a5f 40%, #1a3050 70%, #162540 100%);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+.band-blue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(100, 181, 246, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 70%, rgba(240, 179, 100, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
 .band-2 { background: var(--bg-2); }
 .band-warm { background: var(--bg-warm); }
 
 .band-blue .lede,
-.band-blue .muted { color: rgba(20, 23, 26, 0.72); }
-.band-blue .hud { color: rgba(20, 23, 26, 0.55); }
-.band-blue .script { color: var(--on-blue); }
+.band-blue .muted { color: var(--muted); }
+.band-blue .hud { color: var(--faint); }
+.band-blue .script { color: var(--blue); }
 
 .band-head {
   display: grid;
@@ -329,7 +343,7 @@ body {
 .numbered-item .h-lg { margin-bottom: 16px; }
 .numbered-body p { font-size: clamp(1.05rem, 1.7vw, 1.45rem); line-height: 1.44; font-weight: 400; }
 .numbered-foot { margin-top: 20px; font-size: 0.9rem; }
-.band-blue .numbered-foot { color: rgba(20, 23, 26, 0.66); }
+.band-blue .numbered-foot { color: var(--muted); }
 a.numbered-item .h-lg { transition: opacity 0.25s ease; }
 a.numbered-item:hover .h-lg { opacity: 0.62; }
 
@@ -615,18 +629,6 @@ a.work-item:hover .h-md { color: var(--blue); }
   display: inline-flex; align-items: center; justify-content: center;
   width: 42px; height: 42px;
   border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--muted);
-  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-}
-.socials a:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-3px); }
-.band-blue .socials a { border-color: rgba(20, 23, 26, 0.28); color: rgba(20, 23, 26, 0.72); }
-.band-blue .socials a:hover { background: var(--on-blue); color: var(--blue); border-color: var(--on-blue); }
-
-/* ---------- CTA band ---------- */
-.cta-band { text-align: left; }
-.cta-band .h-xl { max-width: 16ch; margin: 18px 0 28px; }
-.cta-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--bg); padding: clamp(56px, 7vw, 92px) 0 34px; border-top: 1px solid var(--line); }
