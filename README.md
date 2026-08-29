@@ -128,5 +128,5 @@ roughly 2:3, cropped at mid-thigh) and uncomment the `PORTRAIT SLOT` block in
 
 ---
 
-Built by Himanshu Malik. B.S. (Hons.) Chemistry, IIT Kharagpur, class of 2028.
+Built by Himanshu Malik. Chemistry, IIT Kharagpur, class of 2028.
 [himanshumalik0033@gmail.com](mailto:himanshumalik0033@gmail.com)

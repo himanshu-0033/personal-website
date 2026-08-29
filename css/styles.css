@@ -674,6 +674,15 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
 }
 .card p{color:var(--fg-2);font-size:.98rem}
 .card-foot{margin-top:auto;padding-top:18px}
+.card-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.card-links a{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:100px;padding:8px 13px;color:var(--fg-2);
+  transition:border-color .3s var(--ease),color .3s var(--ease),background .3s var(--ease);
+}
+.card-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-wash)}
+.card-links svg{flex:none}
 .band .card{background:rgba(246,244,240,.045);border-color:var(--band-line);color:var(--band-fg)}
 .band .card p{color:var(--band-fg-2)}
 
