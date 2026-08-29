@@ -1,7 +1,7 @@
-# Himanshu Malik — personal website
+# Himanshu Malik, personal website
 
 Static portfolio site. Seven hand-written HTML pages, one stylesheet, one script.
-No build step, no framework, no dependencies — open `index.html` and it runs.
+No build step, no framework, no dependencies. Open `index.html` and it runs.
 
 **Live pages:** Home · About · Skills · Experience · Projects · Education · Contact
 
@@ -21,10 +21,10 @@ nicer because it gives clean URLs.
 ```
 index.html  about.html  skills.html  experience.html
 projects.html  education.html  contact.html
-css/styles.css        design system — tokens, components, responsive, print
+css/styles.css        design system: tokens, components, responsive, print
 js/script.js          all behaviour, vanilla, ~500 lines
 assets/img/           profile photo, IIT KGP mark (also the favicon)
-assets/resume/        three PDFs — SDE, Data, Product
+assets/resume/        three PDFs: SDE, Data, Product
 ```
 
 ## Design system
@@ -55,13 +55,13 @@ wrong theme on load.
 
 Compose pages from these; avoid inventing new classes.
 
-- **Type** — `.d-hero` `.d-xl` `.d-lg` `.d-md` `.d-sm` `.lede` `.eyebrow` `.outline` `.accent`
-- **Layout** — `.wrap` `.section` `.bg-alt` `.bg-sunk` `.band` `.sec-head` `.page-hero` `.crumb`
-- **Dark slab** — `.dark-slab` re-declares the palette tokens locally, so the magenta
+- **Type**: `.d-hero` `.d-xl` `.d-lg` `.d-md` `.d-sm` `.lede` `.eyebrow` `.outline` `.accent`
+- **Layout**: `.wrap` `.section` `.bg-alt` `.bg-sunk` `.band` `.sec-head` `.page-hero` `.crumb`
+- **Dark slab**: `.dark-slab` re-declares the palette tokens locally, so the magenta
   hero reads identically in both themes and every child inherits the on-dark colours
-- **Components** — `.card` `.stack` `.stats` `.worklist`/`.workrow` `.feature` `.accordion`
+- **Components**: `.card` `.stack` `.stats` `.worklist`/`.workrow` `.feature` `.accordion`
   `.tags` `.meter` `.timeline` `.table` `.filters` `.contact-list` `.resume-panel` `.note` `.cta`
-- **Buttons** — `.btn` + `.btn-solid` / `.btn-ink` / `.btn-ghost` / `.btn-light`; `.link-arrow`; `.read-more`
+- **Buttons**: `.btn` + `.btn-solid` / `.btn-ink` / `.btn-ghost` / `.btn-light`; `.link-arrow`; `.read-more`
 
 ### Motion hooks
 
@@ -86,7 +86,7 @@ accordion, project filtering, and the write-up modal with deep linking.
 
 Long-form posts live in `<template id="post-<id>">` blocks at the bottom of the
 page they belong to. Anything carrying `data-modal="<id>"` opens the matching
-template in the modal, and the id is pushed to the URL hash — so
+template in the modal, and the id is pushed to the URL hash, so
 `projects.html#zepto` opens that write-up directly, and the homepage links into
 them that way.
 
@@ -100,7 +100,7 @@ No JavaScript changes needed.
 - `prefers-reduced-motion` disables the preloader, cursor, grain, canvas and every
   transition, and pins revealed content to its final state
 - Custom cursor and hover previews are suppressed on touch and coarse pointers
-- Content is plain HTML — the pages read fine with JavaScript disabled
+- Content is plain HTML, so the pages read fine with JavaScript disabled
 - Print stylesheet strips the chrome
 
 ## The hero portrait slot
@@ -111,7 +111,7 @@ rectangle against the magenta, so **that side is intentionally left empty**.
 
 To fill it: save a transparent PNG as `assets/img/profile-cutout.png` (portrait,
 roughly 2:3, cropped at mid-thigh) and uncomment the `PORTRAIT SLOT` block in
-`index.html`. The `.hero-figure` CSS is already written — no other change needed.
+`index.html`. The `.hero-figure` CSS is already written, so no other change is needed.
 
 ## Editing notes
 
@@ -119,10 +119,10 @@ roughly 2:3, cropped at mid-thigh) and uncomment the `PORTRAIT SLOT` block in
 - The homepage owns `.hero`, the `#dotfield` canvas and `.hero-ghost`; every other
   page opens with `.page-hero`. Both carry `.dark-slab`
 - The header floats transparent and light over that slab, then becomes the solid
-  blurred bar once it scrolls past — the threshold is measured in `script.js`,
+  blurred bar once it scrolls past. The threshold is measured in `script.js`,
   not hardcoded
 - The header, footer, loader, grain, progress bar and modal markup are identical
-  across all seven pages — change one, change all seven
+  across all seven pages, so change one and change all seven
 - `.marquee-track` words are written once; the script duplicates the track for the
   seamless loop
 

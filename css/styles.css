@@ -1,5 +1,5 @@
 /* =========================================================================
-   Himanshu Malik — v3 "Signal"
+   Himanshu Malik, v3 "Signal"
    Light editorial ground, near-black ink, one hot crimson accent.
    Display: Archivo (variable wdth+wght) · Body: Inter Tight · Meta: JetBrains Mono
    ========================================================================= */
@@ -402,7 +402,7 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
 /* ==========================================================================
    HERO
    ========================================================================== */
-/* Dark magenta ground, portrait right, ghost watermark behind — the reference
+/* Dark magenta ground, portrait right, ghost watermark behind, matching the reference
    composition. Tokens are re-declared locally so the slab reads the same in
    both themes and every child inherits the on-dark palette. */
 .dark-slab{

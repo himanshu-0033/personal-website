@@ -1,5 +1,5 @@
 /* =========================================================================
-   Himanshu Malik — v3 "Signal"
+   Himanshu Malik, v3 "Signal"
    Vanilla. No dependencies. Everything degrades without JS or with
    prefers-reduced-motion.
    ========================================================================= */
