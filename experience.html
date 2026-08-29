@@ -4,20 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Experience &mdash; Himanshu Malik</title>
-<meta name="description" content="Internships, part-time analysis work, and the positions I have held on campus.">
+<meta name="description" content="Internships, part-time analysis work, and the positions I have held on campus &mdash; product, data, development, mentoring and operations.">
+<meta name="theme-color" content="#0b0b0d">
 <link rel="icon" href="assets/img/iitkgp-logo.png">
+<meta property="og:title" content="Experience &mdash; Himanshu Malik">
+<meta property="og:description" content="Internships, part-time analysis work, and the positions I have held on campus.">
+<meta property="og:image" content="assets/img/profile.jpg">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@300..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script>
+(function(){try{var t=localStorage.getItem('hm-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' loading';}})();
+</script>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <p class="loader-word"><span>Himanshu</span><span>Malik</span></p>
+    <p class="loader-count">000</p>
+  </div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="site-header" id="site-header">
   <div class="header-bar">
-    <a href="index.html" class="wordmark">Himanshu Malik</a>
+    <a href="index.html" class="wordmark" data-cursor="Home"><span class="mark"></span>Himanshu Malik</a>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Main">
       <a href="index.html">Home</a>
@@ -29,32 +50,58 @@
       <a href="contact.html">Contact</a>
     </nav>
 
-    <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h18M3 17h18"/></svg>
-    </button>
+    <div class="header-tools">
+      <button class="theme-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+      </button>
+      <a href="contact.html" class="header-cta" data-magnet="0.25">Hire me</a>
+      <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
   </div>
 </header>
 
 <main id="main">
-  <section class="page-hero">
+
+  <!-- ============================ PAGE HERO =========================== -->
+  <section class="page-hero dark-slab">
     <div class="wrap">
-      <span class="script script-blue">Track record</span>
-      <h1 class="h-xl">Experience</h1>
-      <p class="lede">Internships, part-time analysis work, and the positions I have held on campus. Open any one to read what the work was actually like.</p>
+      <p class="crumb"><a href="index.html">Home</a> &middot; <span>Experience</span></p>
+      <span class="eyebrow">Track record</span>
+      <div class="page-hero-grid">
+        <h1 class="d-xl split"><span class="ln"><span>Experience</span></span></h1>
+        <p class="lede">Internships, part-time analysis work, and the positions I have held on campus. Open any one to read what the work was actually like.</p>
+      </div>
     </div>
   </section>
 
-  <section class="band">
+  <!-- ============================= TIMELINE =========================== -->
+  <section class="section">
     <div class="wrap">
-      <div class="entries">
-        <article class="entry" data-modal="naviira" data-reveal>
-          <div class="entry-side">
-            <span class="entry-date">Mar 2025 &ndash; present</span>
-            <span class="entry-tag">Product</span>
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">01 &mdash; Roles</span>
+          <h2 class="d-xl split">
+            <span class="ln"><span>Five roles,</span></span>
+            <span class="ln"><span>newest <em class="accent">first</em></span></span>
+          </h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">Product, data, development, mentoring and operations. None of them were tidy, and the write-ups say so.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <article class="tl-item" data-modal="naviira" data-reveal>
+          <div class="tl-side">
+            <span class="tl-date">Mar 2025 &ndash; present</span>
+            <span class="tag">Product</span>
           </div>
-          <div class="entry-body">
-            <h3 class="h-md">Market &amp; Customer Analyst</h3>
-            <p class="entry-org">Naviira Jewels &middot; Remote</p>
+          <div class="tl-body">
+            <h3 class="d-md">Market &amp; Customer Analyst</h3>
+            <p class="tl-org">Naviira Jewels &middot; Remote</p>
             <p>
               A newly launched jewellery brand asked me to work out who was actually buying and why.
               I ran the numbers on their campaigns and helped decide what to stock next.
@@ -69,14 +116,14 @@
           </div>
         </article>
 
-        <article class="entry" data-modal="acc" data-reveal>
-          <div class="entry-side">
-            <span class="entry-date">May &ndash; Jun 2026</span>
-            <span class="entry-tag">Data</span>
+        <article class="tl-item" data-modal="acc" data-reveal>
+          <div class="tl-side">
+            <span class="tl-date">May &ndash; Jun 2026</span>
+            <span class="tag">Data</span>
           </div>
-          <div class="entry-body">
-            <h3 class="h-md">Data Analyst Intern</h3>
-            <p class="entry-org">Analytics Career Connect &middot; Remote</p>
+          <div class="tl-body">
+            <h3 class="d-md">Data Analyst Intern</h3>
+            <p class="tl-org">Analytics Career Connect &middot; Remote</p>
             <p>Reporting work on real business datasets, mostly in SQL and Power BI.</p>
             <ul>
               <li>Wrote queries to pull and reshape large datasets for weekly reporting.</li>
@@ -87,14 +134,14 @@
           </div>
         </article>
 
-        <article class="entry" data-modal="aax" data-reveal>
-          <div class="entry-side">
-            <span class="entry-date">Jul &ndash; Sep 2025</span>
-            <span class="entry-tag">Development</span>
+        <article class="tl-item" data-modal="aax" data-reveal>
+          <div class="tl-side">
+            <span class="tl-date">Jul &ndash; Sep 2025</span>
+            <span class="tag">Development</span>
           </div>
-          <div class="entry-body">
-            <h3 class="h-md">Web Team Member</h3>
-            <p class="entry-org">AA-X Alumni Cell, IIT Kharagpur</p>
+          <div class="tl-body">
+            <h3 class="d-md">Web Team Member</h3>
+            <p class="tl-org">AA-X Alumni Cell, IIT Kharagpur</p>
             <p>Worked on the cell's web platform ahead of a large alumni networking event.</p>
             <ul>
               <li>Built responsive interfaces for the alumni portal.</li>
@@ -105,14 +152,14 @@
           </div>
         </article>
 
-        <article class="entry" data-modal="mentor" data-reveal>
-          <div class="entry-side">
-            <span class="entry-date">Jun &ndash; Jul 2025</span>
-            <span class="entry-tag">Mentoring</span>
+        <article class="tl-item" data-modal="mentor" data-reveal>
+          <div class="tl-side">
+            <span class="tl-date">Jun &ndash; Jul 2025</span>
+            <span class="tag">Mentoring</span>
           </div>
-          <div class="entry-body">
-            <h3 class="h-md">JEE Mentor</h3>
-            <p class="entry-org">Dakshana Alumni Network &middot; Remote</p>
+          <div class="tl-body">
+            <h3 class="d-md">JEE Mentor</h3>
+            <p class="tl-org">Dakshana Alumni Network &middot; Remote</p>
             <p>Gave back to the programme that got me here, teaching maths to Dakshana scholars.</p>
             <ul>
               <li>Coached scholars through the quantitative sections they were losing the most marks on.</li>
@@ -123,14 +170,14 @@
           </div>
         </article>
 
-        <article class="entry" data-modal="invigilator" data-reveal>
-          <div class="entry-side">
-            <span class="entry-date">Dec 2025</span>
-            <span class="entry-tag">Operations</span>
+        <article class="tl-item" data-modal="invigilator" data-reveal>
+          <div class="tl-side">
+            <span class="tl-date">Dec 2025</span>
+            <span class="tag">Operations</span>
           </div>
-          <div class="entry-body">
-            <h3 class="h-md">Invigilator &amp; Coordinator</h3>
-            <p class="entry-org">Dakshana Alumni Network &middot; JNV Jajpur</p>
+          <div class="tl-body">
+            <h3 class="d-md">Invigilator &amp; Coordinator</h3>
+            <p class="tl-org">Dakshana Alumni Network &middot; JNV Jajpur</p>
             <p>Ran the on-ground logistics for a national scholarship selection test.</p>
             <ul>
               <li>Invigilated the Dakshana Scholar Test and oversaw exam-day logistics.</li>
@@ -144,13 +191,50 @@
     </div>
   </section>
 
-  <section class="band band-feature">
-    <div class="wrap cta-band" data-reveal>
-      <span class="script">Next</span>
-      <h2 class="h-xl">Looking for a summer internship</h2>
-      <div class="cta-actions">
-        <a href="contact.html" class="btn btn-dark">Get in touch</a>
-        <a href="projects.html" class="btn btn-ghost">See the projects</a>
+  <!-- ============================== STATS ============================= -->
+  <section class="section bg-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">02 &mdash; The short version</span>
+          <h2 class="d-xl split"><span class="ln"><span>Counted up</span></span></h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">Four numbers that sit underneath the five entries above.</p>
+        </div>
+      </div>
+
+      <div class="stats" data-reveal>
+        <div class="stat">
+          <span class="n"><span class="suf">&#8377;</span><span data-count="80">0</span><span class="suf">k</span></span>
+          <span class="k">In sales contributed &mdash; Naviira Raja festival campaign</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="5">0</span></span>
+          <span class="k">Roles held &mdash; product, data, development, mentoring, operations</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="4">0</span></span>
+          <span class="k">Organisations worked with, remote and on campus</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="2">0</span></span>
+          <span class="k">Roles given back to Dakshana, the programme that funded me</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================== CTA ============================== -->
+  <section class="band section cta">
+    <div class="wrap">
+      <span class="eyebrow bare" style="justify-content:center">Next</span>
+      <a href="contact.html" class="cta-link" data-cursor="Say hello">
+        <h2 class="d-hero">Looking for a <em class="outline">summer internship</em></h2>
+      </a>
+      <div class="btn-row" style="justify-content:center;margin-top:14px">
+        <a href="contact.html" class="btn btn-light" data-magnet="0.25">Get in touch</a>
+        <a href="projects.html" class="btn btn-ghost" data-magnet="0.25">See the projects</a>
       </div>
     </div>
   </section>
@@ -160,7 +244,7 @@
   <template id="post-naviira">
     <article class="post">
       <p class="post-kicker"><span>Product</span><span>Mar 2025 &ndash; present</span><span>Naviira Jewels</span></p>
-      <h2 class="h-lg">Market &amp; Customer Analyst</h2>
+      <h2>Market &amp; Customer Analyst</h2>
       <p class="post-lede">A new brand with real money on the line, and nobody yet sure who was buying.</p>
 
       <h3>What they needed</h3>
@@ -214,7 +298,7 @@
   <template id="post-acc">
     <article class="post">
       <p class="post-kicker"><span>Data</span><span>May &ndash; Jun 2026</span><span>Analytics Career Connect</span></p>
-      <h2 class="h-lg">Data Analyst Intern</h2>
+      <h2>Data Analyst Intern</h2>
       <p class="post-lede">My first exposure to business data that somebody was already depending on.</p>
 
       <h3>Real data is not coursework data</h3>
@@ -262,7 +346,7 @@
   <template id="post-aax">
     <article class="post">
       <p class="post-kicker"><span>Development</span><span>Jul &ndash; Sep 2025</span><span>IIT Kharagpur</span></p>
-      <h2 class="h-lg">Web Team, AA-X Alumni Cell</h2>
+      <h2>Web Team, AA-X Alumni Cell</h2>
       <p class="post-lede">Campus work with an immovable deadline &mdash; the event happens whether or not your feature is ready.</p>
 
       <h3>How I ended up here</h3>
@@ -315,7 +399,7 @@
   <template id="post-mentor">
     <article class="post">
       <p class="post-kicker"><span>Mentoring</span><span>Jun &ndash; Jul 2025</span><span>Dakshana Alumni Network</span></p>
-      <h2 class="h-lg">JEE Mentor</h2>
+      <h2>JEE Mentor</h2>
       <p class="post-lede">Teaching maths to scholars sitting exactly where I sat three years earlier.</p>
 
       <h3>Why this one matters to me</h3>
@@ -367,7 +451,7 @@
   <template id="post-invigilator">
     <article class="post">
       <p class="post-kicker"><span>Operations</span><span>December 2025</span><span>JNV Jajpur</span></p>
-      <h2 class="h-lg">Invigilator &amp; Coordinator</h2>
+      <h2>Invigilator &amp; Coordinator</h2>
       <p class="post-lede">On the other side of the desk, at the exact test that decided my own path.</p>
 
       <h3>Coming back round</h3>
@@ -421,57 +505,74 @@
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
-      <div>
-        <p class="footer-name">Himanshu Malik</p>
-        <p class="footer-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          Available for internships in software, data, or product
-        </p>
+      <div class="footer-brand">
+        <p class="footer-name">Himanshu<br>Malik</p>
+        <p class="status"><span class="dot"></span>Available for internships in software, data, or product</p>
       </div>
 
-      <ul class="socials" aria-label="Social links">
-        <li>
-          <a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="4" x2="6" y2="20"/><line x1="6" y1="13" x2="17" y2="4"/><line x1="9.5" y1="12.3" x2="18" y2="20"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="mailto:himanshumalik0033@gmail.com" aria-label="Email" title="Email">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/></svg>
-          </a>
-        </li>
-      </ul>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="mailto:himanshumalik0033@gmail.com">himanshumalik0033@gmail.com</a></li>
+          <li><a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer">Kaggle</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_SDE.pdf" download>Resume &mdash; SDE</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_Data.pdf" download>Resume &mdash; Data</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_Product.pdf" download>Resume &mdash; Product</a></li>
+        </ul>
+      </div>
     </div>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="skills.html">Skills</a>
-      <a href="experience.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="education.html">Education</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year>2026</span> Himanshu Malik &mdash; IIT Kharagpur</span>
+
+      <ul class="socials" aria-label="Social links">
+        <li><a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
+        </a></li>
+        <li><a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
+        </a></li>
+        <li><a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16M6 13 17 4M9.5 12.3 18 20"/></svg>
+        </a></li>
+        <li><a href="mailto:himanshumalik0033@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/></svg>
+        </a></li>
+      </ul>
+
+      <a href="#main" class="to-top">Back to top
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </div>
   </div>
 </footer>
 
 <div class="modal" id="modal" hidden>
   <div class="modal-backdrop" data-close></div>
   <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
-    <button class="modal-close" type="button" data-close aria-label="Close">
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <div class="modal-scroll" id="modal-content"></div>
+    <div class="modal-head">
+      <span class="eyebrow bare" id="modal-eyebrow">Write-up</span>
+      <button class="modal-close" type="button" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="modal-progress"></div>
+    </div>
+    <div class="modal-scroll"><div id="modal-content"></div></div>
   </div>
 </div>
 

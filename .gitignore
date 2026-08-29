@@ -1,0 +1,8 @@
+# working brief, not shipped
+requirements.txt
+
+# OS / editor cruft
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/

@@ -3,21 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Himanshu Malik</title>
-<meta name="description" content="Himanshu Malik, B.S. (Hons.) Chemistry at IIT Kharagpur. I build software, analyse data, and work on product.">
+<title>Himanshu Malik — Software, Data, Product</title>
+<meta name="description" content="Himanshu Malik — B.S. (Hons.) Chemistry at IIT Kharagpur, minor in AI. I build software, analyse data, and think about product. Gold at Open IIT Data Analytics.">
+<meta name="theme-color" content="#0b0b0d">
 <link rel="icon" href="assets/img/iitkgp-logo.png">
+<meta property="og:title" content="Himanshu Malik — Software, Data, Product">
+<meta property="og:description" content="B.S. (Hons.) Chemistry at IIT Kharagpur. I build software, analyse data, and think about product.">
+<meta property="og:image" content="assets/img/profile.jpg">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@300..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script>
+(function(){try{var t=localStorage.getItem('hm-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' loading';}})();
+</script>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <p class="loader-word"><span>Himanshu</span><span>Malik</span></p>
+    <p class="loader-count">000</p>
+  </div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="site-header" id="site-header">
   <div class="header-bar">
-    <a href="index.html" class="wordmark">Himanshu Malik</a>
+    <a href="index.html" class="wordmark" data-cursor="Home"><span class="mark"></span>Himanshu Malik</a>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Main">
       <a href="index.html" aria-current="page">Home</a>
@@ -29,284 +50,537 @@
       <a href="contact.html">Contact</a>
     </nav>
 
-    <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h18M3 17h18"/></svg>
-    </button>
+    <div class="header-tools">
+      <button class="theme-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+      </button>
+      <a href="contact.html" class="header-cta" data-magnet="0.25">Hire me</a>
+      <button class="menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="hero-media">
-      <img src="assets/img/profile.jpg" alt="Himanshu Malik">
-    </div>
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <div class="hero-scanlines" aria-hidden="true"></div>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero dark-slab">
+    <canvas id="dotfield" aria-hidden="true"></canvas>
+    <p class="hero-ghost" aria-hidden="true">Himanshu</p>
 
-    <div class="hero-inner">
-      <h1 class="hero-name">
-        <span>Himanshu</span>
-        <span>Malik</span>
+    <!-- PORTRAIT SLOT — intentionally empty.
+         The reference hero uses a background-removed cut-out of the person.
+         assets/img/profile.jpg still has its indoor background, which reads as a
+         pasted rectangle on the gradient, so this side is left blank on purpose.
+         To fill it: save a transparent PNG as assets/img/profile-cutout.png and
+         uncomment the figure below — the CSS (.hero-figure) is already in place.
+    <figure class="hero-figure">
+      <img src="assets/img/profile-cutout.png" alt="Himanshu Malik" width="520" height="760">
+    </figure>
+    -->
+
+    <div class="hero-badge" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs><path id="badgePath" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"></path></defs>
+        <text><textPath href="#badgePath" textLength="232">Open to internships &middot; Since 2024 &middot; </textPath></text>
+      </svg>
+      <span class="core">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </span>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-top">
+        <span class="eyebrow">Portfolio &mdash; Edition 2026</span>
+        <span class="eyebrow bare">Kharagpur, India &nbsp;&middot;&nbsp; 22.32&deg;N 87.31&deg;E</span>
+      </div>
+
+      <h1 class="d-hero hero-name split">
+        <span class="ln"><span>Himanshu</span></span>
+        <span class="ln"><span>
+          <em class="outline">Malik</em>
+          <em class="accent">.</em>
+        </span></span>
       </h1>
 
       <div class="hero-foot">
-        <div class="hero-role">
-          <p class="h-md">Chemistry undergraduate</p>
-          <p>IIT Kharagpur, Class of 2028. Minor in Artificial Intelligence. I write code, analyse data, and think about product.</p>
+        <div class="hero-role" data-reveal>
+          <p class="d-sm">Chemistry undergraduate. Builder by habit.</p>
+          <p>IIT Kharagpur, Class of 2028, minor in Artificial Intelligence. I write code, analyse data, and think about product &mdash; and I have not decided which one wins yet.</p>
         </div>
 
-        <div class="cta-actions">
-          <a href="projects.html" class="btn btn-blue">View My Work</a>
+        <div class="hero-stats" data-stagger>
+          <div class="hero-stat">
+            <span class="n"><span data-count="1">0</span>&#8202;<span class="accent">st</span></span>
+            <span class="k">Open IIT Data Analytics &mdash; Gold</span>
+          </div>
+          <div class="hero-stat">
+            <span class="n" data-count="8.49">0.00</span>
+            <span class="k">CGPA at IIT Kharagpur</span>
+          </div>
+          <div class="hero-stat">
+            <span class="n"><span data-count="7">0</span></span>
+            <span class="k">Shipped builds &amp; case studies</span>
+          </div>
         </div>
+      </div>
 
-        <p class="hero-scroll hud"><span class="line" aria-hidden="true"></span>Scroll</p>
+      <div class="btn-row hero-cta" data-reveal>
+        <a href="contact.html" class="btn btn-light" data-magnet="0.25">Get in touch
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a href="projects.html" class="btn btn-ghost" data-magnet="0.25">See the work</a>
       </div>
     </div>
+
   </section>
 
-  <!-- ============ ABOUT ============ -->
-  <section class="band">
-    <div class="wrap about">
-      <h2 class="h-xl" data-reveal>Building things<br>I wanted to exist</h2>
-
-      <figure class="about-figure" data-reveal>
-        <span class="script about-label">About</span>
-        <img src="assets/img/profile.jpg" alt="Himanshu Malik">
-      </figure>
-
-      <div class="about-copy" data-reveal>
-        <p>
-          I came to IIT Kharagpur through the Jawahar Navodaya Vidyalaya system and the Dakshana
-          scholarship &mdash; a long way of saying I did not grow up around computers. I picked up
-          programming here by building things I wanted to exist.
-        </p>
-        <p>
-          The data side came through statistical inference coursework and a lot of SQL on my own.
-          The product side came from a small jewellery brand, where I learned a good dashboard is
-          worth nothing if nobody changes what they do because of it.
-        </p>
-      </div>
+  <!-- ============================ MARQUEE ============================ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Software</span><span class="ghost">Data</span><span>Product</span><span class="ghost">SQL</span><span>Python</span><span class="ghost">Statistics</span>
     </div>
-  </section>
+  </div>
 
-  <!-- ============ SELECTED WORK ============ -->
-  <section class="band band-2">
+  <!-- ============================= INTRO ============================= -->
+  <section class="section">
     <div class="wrap">
-      <div class="band-head" data-reveal>
+      <div class="sec-head">
         <div>
-          <span class="script">Selected</span>
-          <h2 class="h-xl">The Work</h2>
+          <span class="eyebrow">01 &mdash; Introduction</span>
+          <h2 class="d-xl split">
+            <span class="ln"><span>Building things</span></span>
+            <span class="ln"><span>I wanted <em class="accent">to exist</em></span></span>
+          </h2>
         </div>
-        <div class="band-head-side">
-          <p class="lede">Full-stack builds, SQL and Python analysis, and product cases I have written and pitched.</p>
-          <a href="projects.html" class="btn btn-ghost">See Full Work</a>
-        </div>
-      </div>
-
-      <div class="work-grid">
-        <a class="work-item" href="projects.html#supermarket" data-reveal>
-          <div class="work-media">
-            <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">01</span></div>
-          </div>
-          <div class="work-caption">
-            <div>
-              <h3 class="h-md">Supermarket management system</h3>
-              <p class="work-sub">Full-stack inventory and billing for a small retail shop.</p>
-            </div>
-            <span class="work-index">01</span>
-          </div>
-        </a>
-        <a class="work-item" href="projects.html#zepto" data-reveal>
-          <div class="work-media">
-            <div class="work-visual"><span class="hud work-cat">Data</span><span class="ghost">02</span></div>
-          </div>
-          <div class="work-caption">
-            <div>
-              <h3 class="h-md">Zepto inventory analysis</h3>
-              <p class="work-sub">End-to-end PostgreSQL study of quick-commerce stock data.</p>
-            </div>
-            <span class="work-index">02</span>
-          </div>
-        </a>
-        <a class="work-item" href="projects.html#weather" data-reveal>
-          <div class="work-media">
-            <div class="work-visual"><span class="hud work-cat">Development</span><span class="ghost">03</span></div>
-          </div>
-          <div class="work-caption">
-            <div>
-              <h3 class="h-md">Weather application</h3>
-              <p class="work-sub">Responsive live weather and short-range forecasts.</p>
-            </div>
-            <span class="work-index">03</span>
-          </div>
-        </a>
-        <a class="work-item" href="projects.html#dreamhome" data-reveal>
-          <div class="work-media">
-            <div class="work-visual"><span class="hud work-cat">Product</span><span class="ghost">04</span></div>
-          </div>
-          <div class="work-caption">
-            <div>
-              <h3 class="h-md">Dream Home Solutions</h3>
-              <p class="work-sub">Business model and pitch for digital property management.</p>
-            </div>
-            <span class="work-index">04</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ HIGHLIGHT / REEL ============ -->
-  <section class="band band-warm reel">
-    <div class="wrap">
-      <div class="band-head" data-reveal>
-        <div>
-          <span class="script">The Highlight</span>
-          <h2 class="h-xl">Gold at Open IIT<br>Data Analytics</h2>
+        <div class="sec-head-side">
+          <p class="lede">I did not grow up around computers. Everything technical on this site was learned after I arrived at Kharagpur &mdash; mostly by needing something and then building it.</p>
+          <a href="about.html" class="link-arrow" data-magnet="0.2">Read the full story
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="reel-frame" data-reveal>
-        <div class="reel-panel">
-          <div class="reel-bar">
-            <span class="hud">Open IIT // 2026</span>
-            <span class="hud">Rank 01 [Gold]</span>
-          </div>
-
-          <div class="reel-body">
-            <h3 class="h-lg">First place, campus-wide</h3>
-            <p>
-              A competition judged on the whole chain: cleaning the data, choosing the analysis,
-              and defending what the numbers actually supported. It is the clearest evidence I have
-              that the analytical side is not just coursework for me.
-            </p>
-          </div>
-
-          <div class="reel-meta">
-            <span class="hud">SQL</span>
-            <span class="hud">Python</span>
-            <span class="hud">Statistical inference</span>
-            <span class="hud">Power BI</span>
-          </div>
+      <div class="feature">
+        <div class="feature-media clip-in">
+          <img src="assets/img/profile.jpg" alt="Himanshu Malik" loading="lazy">
+          <span class="feature-tag">IIT Kharagpur &middot; 2024&ndash;28</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BLUE BAND — THREE THINGS ============ -->
-  <section class="band band-feature">
-    <div class="wrap">
-      <div class="band-head" data-reveal>
-        <div>
-          <span class="script">What I Do</span>
-          <h2 class="h-xl">Three kinds<br>of work</h2>
-        </div>
-        <div class="band-head-side">
-          <p class="lede">
-            I am still working out which of these I want to go deepest in,
-            and I am comfortable saying so.
+        <div data-reveal>
+          <p class="lede" style="margin-bottom:24px">
+            I came to IIT Kharagpur through the Jawahar Navodaya Vidyalaya system and the Dakshana
+            scholarship &mdash; a long way of saying the technical work here is self-taught.
           </p>
+          <p>
+            I picked up programming by building things I wanted to exist: a weather app because the campus
+            forecast was useless, a billing system because a shop near home was still running a whole day
+            of trade on a notebook.
+          </p>
+          <p>
+            The data side came through statistical inference coursework and a lot of SQL on my own. The
+            product side came from a small jewellery brand, where I learned that a good dashboard is worth
+            nothing if nobody changes what they do because of it.
+          </p>
+          <div class="btn-row" style="margin-top:34px">
+            <a href="projects.html" class="btn btn-solid" data-magnet="0.25">View the work
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+            <a href="assets/resume/Himanshu_Malik_SDE.pdf" class="btn btn-ghost" download>Download CV</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= STATS ============================= -->
+  <section class="band section-tight">
+    <div class="wrap">
+      <div class="stats" data-reveal>
+        <div class="stat">
+          <span class="n"><span class="suf">&#8377;</span><span data-count="80">0</span><span class="suf">k</span></span>
+          <span class="k">In sales contributed &mdash; Naviira festival campaign</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="5">0</span></span>
+          <span class="k">Roles held &mdash; product, data, dev, mentoring, ops</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="3">0</span></span>
+          <span class="k">Resumes kept, because the question is not settled</span>
+        </div>
+        <div class="stat">
+          <span class="n"><span data-count="8">0</span>&#8202;<span class="suf">+</span></span>
+          <span class="k">Languages, tools &amp; stacks used in shipped work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== SELECTED WORK ========================= -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">02 &mdash; Selected work</span>
+          <h2 class="d-xl split"><span class="ln"><span>The Work</span></span></h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">Full-stack builds, SQL and Python analysis, and product cases I have written and pitched. Each one has a write-up about how it actually went.</p>
+          <a href="projects.html" class="btn btn-ghost" data-magnet="0.25">All 7 projects</a>
         </div>
       </div>
 
-      <div class="numbered">
-        <a class="numbered-item" href="projects.html" data-reveal>
-          <span class="num">(01)</span>
-          <div class="numbered-body">
-            <h3 class="h-lg">Build software</h3>
-            <p>
-              Full-stack web applications, mostly Python and JavaScript on a relational database.
-              A weather app and a supermarket billing system are the two I am happiest with.
-            </p>
-            <p class="numbered-foot">See the projects &rarr;</p>
-          </div>
+      <div class="worklist" data-reveal>
+        <a class="workrow" href="projects.html#supermarket" data-cursor="View" data-variant="" data-cat-label="Development" data-n="01">
+          <span class="workrow-n">01</span>
+          <h3 class="d-lg workrow-title">Supermarket management system</h3>
+          <p class="workrow-sub">Full-stack inventory and billing for a small retail shop.</p>
+          <span class="workrow-go">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
         </a>
 
-        <a class="numbered-item" href="skills.html" data-reveal>
-          <span class="num">(02)</span>
-          <div class="numbered-body">
-            <h3 class="h-lg">Analyse data</h3>
-            <p>
-              SQL and Python for the analysis, Power BI and Matplotlib for the reporting.
-              Statistical inference coursework underneath it, and a gold medal to show for it.
-            </p>
-            <p class="numbered-foot">See the skills &rarr;</p>
-          </div>
+        <a class="workrow" href="projects.html#zepto" data-cursor="View" data-variant="tile-v2" data-cat-label="Data" data-n="02">
+          <span class="workrow-n">02</span>
+          <h3 class="d-lg workrow-title">Zepto inventory analysis</h3>
+          <p class="workrow-sub">End-to-end PostgreSQL study of quick-commerce stock data.</p>
+          <span class="workrow-go">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
         </a>
 
-        <a class="numbered-item" href="experience.html" data-reveal>
-          <span class="num">(03)</span>
-          <div class="numbered-body">
-            <h3 class="h-lg">Think about product</h3>
-            <p>
-              Market research and pricing for a small jewellery brand, plus a business plan I wrote
-              and pitched. The part where analysis has to change a decision.
-            </p>
-            <p class="numbered-foot">See the experience &rarr;</p>
-          </div>
+        <a class="workrow" href="projects.html#weather" data-cursor="View" data-variant="tile-v3" data-cat-label="Development" data-n="03">
+          <span class="workrow-n">03</span>
+          <h3 class="d-lg workrow-title">Weather application</h3>
+          <p class="workrow-sub">Responsive live weather that survives campus wifi.</p>
+          <span class="workrow-go">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="workrow" href="projects.html#inference" data-cursor="View" data-variant="tile-v4" data-cat-label="Data" data-n="04">
+          <span class="workrow-n">04</span>
+          <h3 class="d-lg workrow-title">Statistical inference project</h3>
+          <p class="workrow-sub">Likelihood ratio tests and estimator efficiency, derived not imported.</p>
+          <span class="workrow-go">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="workrow" href="projects.html#dreamhome" data-cursor="View" data-variant="tile-v3" data-cat-label="Product" data-n="05">
+          <span class="workrow-n">05</span>
+          <h3 class="d-lg workrow-title">Dream Home Solutions</h3>
+          <p class="workrow-sub">Business model and pitch for digital property management.</p>
+          <span class="workrow-go">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- =========================== HIGHLIGHT =========================== -->
+  <section class="band section">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">03 &mdash; The highlight</span>
+          <h2 class="d-xl split">
+            <span class="ln"><span>Gold at Open IIT</span></span>
+            <span class="ln"><span>Data Analytics</span></span>
+          </h2>
+        </div>
+        <div class="sec-head-side">
+          <span class="medal"><span class="dot"></span>Rank 01 &middot; Campus-wide &middot; 2026</span>
+          <p class="lede">Judged on the whole chain: cleaning the data, choosing the analysis, and defending what the numbers actually supported.</p>
+        </div>
+      </div>
+
+      <div class="cards" data-stagger>
+        <div class="card">
+          <span class="num">(01)</span>
+          <h3 class="d-md">Clean it honestly</h3>
+          <p>Every cleaning decision is an assumption about the world. The scoring rewarded writing them down instead of hiding them in a one-line drop.</p>
+        </div>
+        <div class="card">
+          <span class="num">(02)</span>
+          <h3 class="d-md">Choose the right test</h3>
+          <p>Statistical inference coursework underneath it &mdash; knowing why this test and not another one, and what it costs to be wrong.</p>
+        </div>
+        <div class="card">
+          <span class="num">(03)</span>
+          <h3 class="d-md">Defend the claim</h3>
+          <p>The part that decided it. Saying what the data shows, and refusing to say what it does not, in front of judges who will push.</p>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:clamp(32px,4vw,56px)" data-reveal>
+        <span class="tag">SQL</span><span class="tag">Python</span><span class="tag">Statistical inference</span><span class="tag">Power BI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= THREE KINDS ========================== -->
+  <section class="section bg-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">04 &mdash; What I do</span>
+          <h2 class="d-xl split">
+            <span class="ln"><span>Three kinds</span></span>
+            <span class="ln"><span>of work</span></span>
+          </h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">I am still working out which of these I want to go deepest in, and I am comfortable saying so rather than inventing a tidier answer.</p>
+        </div>
+      </div>
+
+      <div class="stack">
+        <article class="stack-item" data-reveal>
+          <span class="stack-n">01</span>
+          <div class="stack-body">
+            <h3 class="d-lg">Build software</h3>
+            <p>Full-stack web applications, mostly Python and JavaScript on a relational database. A weather app and a supermarket billing system are the two I am happiest with &mdash; both because the hard part turned out to be the unhappy path, not the feature list.</p>
+          </div>
+          <div class="stack-side">
+            <ul class="tags"><li>Python</li><li>JavaScript</li><li>PostgreSQL</li><li>Node.js</li></ul>
+            <a href="projects.html" class="link-arrow">See the projects
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="stack-item" data-reveal>
+          <span class="stack-n">02</span>
+          <div class="stack-body">
+            <h3 class="d-lg">Analyse data</h3>
+            <p>SQL and Python for the analysis, Power BI and Matplotlib for the reporting, statistical inference coursework underneath it, and a gold medal to show that it is not only coursework. The useful skill is knowing when a result is not strong enough to report.</p>
+          </div>
+          <div class="stack-side">
+            <ul class="tags"><li>SQL</li><li>Pandas</li><li>Power BI</li><li>scikit-learn</li></ul>
+            <a href="skills.html" class="link-arrow">See the skills
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="stack-item" data-reveal>
+          <span class="stack-n">03</span>
+          <div class="stack-body">
+            <h3 class="d-lg">Think about product</h3>
+            <p>Market research and pricing for a small jewellery brand, plus a business plan I wrote and pitched. This is the part where analysis has to change a decision, and where I learned to lead with the recommendation instead of walking through my working.</p>
+          </div>
+          <div class="stack-side">
+            <ul class="tags"><li>Market research</li><li>Pricing</li><li>A/B testing</li><li>Figma</li></ul>
+            <a href="experience.html" class="link-arrow">See the experience
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== HOW I WORK ========================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">05 &mdash; Method</span>
+          <h2 class="d-xl split"><span class="ln"><span>How I work</span></span></h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">The same four steps whether it is a billing screen, a SQL study, or a pitch deck.</p>
+        </div>
+      </div>
+
+      <div class="cards" data-stagger>
+        <div class="card">
+          <span class="num">(01)</span>
+          <h3 class="d-md">Watch the real process</h3>
+          <p>Before any code: how does the work actually happen today, including the small corrections people make without noticing they make them?</p>
+        </div>
+        <div class="card">
+          <span class="num">(02)</span>
+          <h3 class="d-md">Get the structure right first</h3>
+          <p>Schema before screens, cleaning decisions before charts. A structure you patch later is a structure that quietly lies to you.</p>
+        </div>
+        <div class="card">
+          <span class="num">(03)</span>
+          <h3 class="d-md">Build the unhappy path</h3>
+          <p>Timeouts, dropped requests, missing rows, a queue at the counter. This is what separates finished from demoed.</p>
+        </div>
+        <div class="card">
+          <span class="num">(04)</span>
+          <h3 class="d-md">Lead with the decision</h3>
+          <p>State the recommendation, keep the method underneath for whoever wants it. An analysis nobody acts on has not finished.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FAQ ============================== -->
+  <section class="section bg-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">06 &mdash; Straight answers</span>
+          <h2 class="d-xl split">
+            <span class="ln"><span>Questions</span></span>
+            <span class="ln"><span>I get asked</span></span>
+          </h2>
+        </div>
+        <div class="sec-head-side">
+          <p class="lede">Including the awkward ones. If yours is not here, email me and I will answer it properly.</p>
+          <a href="contact.html" class="btn btn-ghost" data-magnet="0.25">Ask me directly</a>
+        </div>
+      </div>
+
+      <div class="accordion" data-reveal>
+        <div class="acc-item">
+          <button class="acc-q d-md" type="button">Why is a chemistry undergraduate applying for software and data roles?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-a"><div class="acc-a-inner">
+            <p>Because that is where the work I reach for first actually is. I chose chemistry and I like it, but most of what I build sits next to my department rather than inside it. The electives did a lot of the lifting &mdash; programming and data structures, probability and statistics, linear algebra, machine learning, and the statistical inference course that changed how I think about evidence. Kharagpur is unusually relaxed about this: nobody stopped me taking ML courses or entering a data analytics competition.</p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-q d-md" type="button">Why do you keep three different resumes?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-a"><div class="acc-a-inner">
+            <p>Because I have not settled the question of whether I want to go deepest in software, data, or product, and pretending otherwise would be dishonest two years in. Each resume leads with the evidence that matters for that track. You can download whichever is relevant on the contact page.</p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-q d-md" type="button">What is the strongest evidence you have?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-a"><div class="acc-a-inner">
+            <p>Gold at Open IIT Data Analytics, campus-wide. It is the clearest signal I have because it was judged end to end &mdash; cleaning, choice of analysis, and defending what the numbers supported &mdash; against everyone who entered, not marked against a rubric I could optimise for.</p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-q d-md" type="button">Have you shipped anything real people used?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-a"><div class="acc-a-inner">
+            <p>Yes. The AA-X Alumni Cell portal went out to working alumni ahead of an event with a date that could not move, and I tuned it for event-scale traffic. The supermarket system was built around how a shop owner actually runs his counter. At Naviira Jewels, targeted outreach I worked on contributed to &#8377;80,000 in sales across the Raja festival campaign.</p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-q d-md" type="button">What are you looking for right now?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-a"><div class="acc-a-inner">
+            <p>A summer internship in software, data, or product. I am comfortable being the person who does the unglamorous part &mdash; the schema, the cleaning, the error states &mdash; and I would rather join something where the output changes a decision than something where it becomes a slide.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== CTA ============================== -->
+  <section class="band section cta">
+    <div class="wrap">
+      <span class="eyebrow bare" style="justify-content:center">Available for internships &mdash; Summer 2027</span>
+      <a href="contact.html" class="cta-link" data-cursor="Say hello">
+        <h2 class="d-hero">Let&rsquo;s <em class="outline">talk</em></h2>
+      </a>
+      <div class="btn-row" style="justify-content:center;margin-top:14px">
+        <a href="mailto:himanshumalik0033@gmail.com" class="btn btn-light" data-magnet="0.25">himanshumalik0033@gmail.com</a>
+        <a href="contact.html" class="btn btn-ghost" data-magnet="0.25">Contact page</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee rev on-band band" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="ghost">Open to internships</span><span>Software</span><span class="ghost">Data</span><span>Product</span>
+    </div>
+  </div>
 
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
-      <div>
-        <p class="footer-name">Himanshu Malik</p>
-        <p class="footer-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          Available for internships in software, data, or product
-        </p>
+      <div class="footer-brand">
+        <p class="footer-name">Himanshu<br>Malik</p>
+        <p class="status"><span class="dot"></span>Available for internships in software, data, or product</p>
       </div>
 
-      <ul class="socials" aria-label="Social links">
-        <li>
-          <a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="4" x2="6" y2="20"/><line x1="6" y1="13" x2="17" y2="4"/><line x1="9.5" y1="12.3" x2="18" y2="20"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="mailto:himanshumalik0033@gmail.com" aria-label="Email" title="Email">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/></svg>
-          </a>
-        </li>
-      </ul>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="mailto:himanshumalik0033@gmail.com">himanshumalik0033@gmail.com</a></li>
+          <li><a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer">Kaggle</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_SDE.pdf" download>Resume &mdash; SDE</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_Data.pdf" download>Resume &mdash; Data</a></li>
+          <li><a href="assets/resume/Himanshu_Malik_Product.pdf" download>Resume &mdash; Product</a></li>
+        </ul>
+      </div>
     </div>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="skills.html">Skills</a>
-      <a href="experience.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="education.html">Education</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year>2026</span> Himanshu Malik &mdash; IIT Kharagpur</span>
+
+      <ul class="socials" aria-label="Social links">
+        <li><a href="https://github.com/himanshu-0033" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
+        </a></li>
+        <li><a href="https://www.linkedin.com/in/himanshu-malik-a3aa0331a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
+        </a></li>
+        <li><a href="https://www.kaggle.com/himanshu7873" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16M6 13 17 4M9.5 12.3 18 20"/></svg>
+        </a></li>
+        <li><a href="mailto:himanshumalik0033@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/></svg>
+        </a></li>
+      </ul>
+
+      <a href="#main" class="to-top">Back to top
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </div>
   </div>
 </footer>
 
 <div class="modal" id="modal" hidden>
   <div class="modal-backdrop" data-close></div>
   <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
-    <button class="modal-close" type="button" data-close aria-label="Close">
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <div class="modal-scroll" id="modal-content"></div>
+    <div class="modal-head">
+      <span class="eyebrow bare" id="modal-eyebrow">Write-up</span>
+      <button class="modal-close" type="button" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="modal-progress"></div>
+    </div>
+    <div class="modal-scroll"><div id="modal-content"></div></div>
   </div>
 </div>
 
