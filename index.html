@@ -70,16 +70,9 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.docu
     <canvas id="dotfield" aria-hidden="true"></canvas>
     <p class="hero-ghost" aria-hidden="true">Himanshu</p>
 
-    <!-- PORTRAIT SLOT: intentionally empty.
-         The reference hero uses a background-removed cut-out of the person.
-         assets/img/profile.jpg still has its indoor background, which reads as a
-         pasted rectangle on the gradient, so this side is left blank on purpose.
-         To fill it: save a transparent PNG as assets/img/profile-cutout.png and
-         uncomment the figure below. The CSS (.hero-figure) is already in place.
     <figure class="hero-figure">
-      <img src="assets/img/profile-cutout.png" alt="Himanshu Malik" width="520" height="760">
+      <img src="assets/img/profile.jpg" alt="Himanshu Malik" width="520" height="760" fetchpriority="high">
     </figure>
-    -->
 
     <div class="hero-badge" aria-hidden="true">
       <svg viewBox="0 0 100 100">
