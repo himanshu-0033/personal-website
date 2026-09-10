@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* The hero reads these as hsl(var(--background, ...)), so they MUST stay in
+   the space-separated HSL-channel form below. shadcn's newer generator emits
+   oklch(...) values instead; if you ever let it rewrite this block, the
+   hero's colors go transparent, because hsl(oklch(...)) is invalid and a
+   var() fallback only fires when the variable is undefined, not invalid. */
+:root {
+  --background: 220 25% 4%;
+  --foreground: 210 40% 98%;
+  --card: 220 20% 10%;
+  --card-foreground: 210 40% 98%;
+  --popover: 220 20% 10%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 205 80% 70%;
+  --primary-foreground: 220 25% 6%;
+  --secondary: 220 16% 16%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 220 16% 16%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 14 88% 63%;
+  --accent-foreground: 220 25% 6%;
+  --border: 220 16% 20%;
+  --input: 220 16% 20%;
+  --ring: 205 80% 70%;
+  --radius: 0.625rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  /* The hero locks the wheel for its own track physics; without this the
+     page itself would try to scroll behind it on some browsers. */
+  overflow: hidden;
+}

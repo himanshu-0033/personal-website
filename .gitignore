@@ -6,3 +6,8 @@ Thumbs.db
 desktop.ini
 .DS_Store
 .vscode/
+
+# React hero toolchain
+node_modules/
+dist/
+.vite/
