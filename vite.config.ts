@@ -16,6 +16,10 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
+    // Vite's own output goes in _hero/, not assets/, so that copy-static.mjs
+    // can drop the site's real assets/ folder into dist/ without the two
+    // merging into one directory.
+    assetsDir: "_hero",
     rollupOptions: {
       input: path.resolve(root, "hero.html"),
     },
