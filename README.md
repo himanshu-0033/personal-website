@@ -64,7 +64,7 @@ index.html  about.html  skills.html  experience.html
 projects.html  education.html  contact.html    the site, hand-written
 css/styles.css          design system: tokens, components, responsive, print
 js/script.js            all behaviour, vanilla, ~500 lines
-assets/img/             photography (all rendered grayscale), profile, IIT KGP mark
+assets/img/             photography, profile, IIT KGP mark (also the favicon)
 assets/img/CREDITS.md   Unsplash ids and crops for every photo
 assets/resume/          three PDFs: SDE, Data, Product
 
@@ -87,33 +87,27 @@ kept for reference.
 
 ## Design system
 
-Modelled on [Azurio](https://azuris-nextjs.vercel.app/index-design-studio):
-true black, white type, no hue anywhere except the hero object, headlines set
-large and light rather than condensed and heavy, mono micro-labels stacked in a
-left rail, and enough negative space that the page reads as composed rather
-than filled.
+Modelled on [moritzdunkel.de](https://www.moritzdunkel.de/): a dark magenta
+gradient hero, oversized condensed display type, uppercase nav, one hot crimson
+accent with yellow as the counterpoint, and modular sections on alternating
+light grounds below.
 
 | | |
 |---|---|
-| Display | Archivo, `wght` 400 at large sizes, `wdth` 100 (was 900 at `wdth` 78) |
+| Display | Archivo (variable `wdth` 62-125, `wght` 100-900) |
 | Body | Inter Tight |
-| Meta / labels | JetBrains Mono, uppercase, `.17em` tracking |
-| Ink / paper | `#ffffff` on `#000000`, inverted in light |
-| Accent | there isn't one: `--accent` is white in night, black in light |
-| Second tone | grey. `.accent` now marks the quiet half of a two-tone headline |
+| Meta / labels | JetBrains Mono |
+| Accent | `#c80552`, hover `#ff1575` |
+| Counterpoint | `#ffcc00` (rotating badge, on-slab rules) |
+| Ink / paper | `#0b0b0d` on `#ffffff` / `#f4f3ef` |
 
 Everything is driven by CSS custom properties on `:root`, with a full dark set
 under `html[data-theme="dark"]`. To reskin the site, change the tokens at the
 top of `css/styles.css` and nothing else.
 
-Night is the default. The visitor's choice is stored in `localStorage` under
-`hm-theme` and applied by a tiny inline script in each `<head>`, so there is no
-flash of the wrong theme on load; with nothing stored the script picks dark
-rather than following the system, because the design is black first and the
-light set is its inversion.
-
-Every photograph is forced to grayscale by one rule near the bottom of the
-stylesheet. A single colour image is enough to break a monochrome page.
+Theme is chosen by the visitor, stored in `localStorage` under `hm-theme`, and
+applied by a tiny inline script in each `<head>` so there is no flash of the
+wrong theme on load.
 
 The React hero keeps its own palette in `src/index.css`. Those values must stay
 in space-separated HSL-channel form, because the component reads them as
@@ -126,10 +120,8 @@ Compose pages from these; avoid inventing new classes.
 
 - **Type**: `.d-hero` `.d-xl` `.d-lg` `.d-md` `.d-sm` `.lede` `.eyebrow` `.outline` `.accent`
 - **Layout**: `.wrap` `.section` `.bg-alt` `.bg-sunk` `.band` `.sec-head` `.page-hero` `.crumb`
-- **Hero**: `.hero-rail` + `.rail-list` (the mono label stack down the left edge),
-  `.hero-name` (right-aligned above 1024px), `.hero-scroll` (the corner cue)
-- **Dark slab**: `.dark-slab` re-declares the palette tokens locally, so every hero
-  stays black in both themes and every child inherits the on-dark colours
+- **Dark slab**: `.dark-slab` re-declares the palette tokens locally, so the magenta
+  hero reads identically in both themes and every child inherits the on-dark colours
 - **Components**: `.card` `.stack` `.stats` `.worklist`/`.workrow` `.feature` `.accordion`
   `.tags` `.meter` `.timeline` `.table` `.filters` `.contact-list` `.resume-panel` `.note` `.cta`
 - **Buttons**: `.btn` + `.btn-solid` / `.btn-ink` / `.btn-ghost` / `.btn-light`; `.link-arrow`; `.read-more`
@@ -153,7 +145,7 @@ page, so nothing needs registering.
 | `data-modal="<id>"` | opens the matching write-up template |
 
 Also in the script, in source order: theme, preloader, custom cursor, scroll
-meter and hide-on-scroll header, mobile menu, reveal observer, the hero object
+meter and hide-on-scroll header, mobile menu, reveal observer, hero dot-field
 canvas, marquee duplication, work hover preview, accordion, filters, the modal
 with deep linking, the footer year, and the pointer-lit surfaces below.
 
@@ -165,7 +157,7 @@ block at the bottom of `css/styles.css`.
 | Effect | How it works |
 |---|---|
 | Pointer light | One delegated `mousemove` writes `--mx` `--my` `--rx` `--ry` onto the nearest `.card`, `.resume-panel`, `.tl-item`, `.stat` or `.feature-media`. CSS turns those into a spotlight that follows the cursor and a few degrees of tilt |
-| Hero object | `#hero-canvas` draws an iridescent liquid form: three sine harmonics for the silhouette, a hard environment gradient for the metal, the oil-slick screened over it, one specular lobe, a far side falling into black, a feathered rim. Drawn at 45% size and scaled up, because the upscale is the blur. The edge facing the cursor swells toward it. Full size on the homepage, pushed right and dimmed on the other six |
+| Dot-field everywhere | Every page hero carries the `#dotfield` canvas the homepage had. It reads its colours from the slab it sits in, so the dots are white on the magenta and bloom yellow around the cursor |
 | Scroll parallax | Hero washes and `.wide-figure` photos drift against the scroll on a `view()` timeline. Pure CSS, inside an `@supports` guard, so an unsupporting browser just gets a still photo |
 
 The pointer effects are skipped outright on a coarse pointer or under

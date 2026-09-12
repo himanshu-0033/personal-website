@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Himanshu Malik | Software, Data, Product</title>
 <meta name="description" content="Himanshu Malik, Chemistry undergraduate at IIT Kharagpur, minor in AI. I build software, analyse data, and think about product. Gold at Open IIT Data Analytics.">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0b0b0d">
 <link rel="icon" href="assets/img/iitkgp-logo.png">
 <meta property="og:title" content="Himanshu Malik | Software, Data, Product">
 <meta property="og:description" content="Chemistry undergraduate at IIT Kharagpur. I build software, analyse data, and think about product.">
@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@300..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <script>
-(function(){try{var t=localStorage.getItem('hm-theme');if(!t){t='dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}
+(function(){try{var t=localStorage.getItem('hm-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' loading';}})();
 </script>
 </head>
@@ -67,22 +67,21 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.docu
 
   <!-- ============================== HERO ============================== -->
   <section class="hero dark-slab">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <canvas id="dotfield" aria-hidden="true"></canvas>
+    <p class="hero-ghost" aria-hidden="true">Himanshu</p>
 
-    <div class="hero-rail" aria-hidden="true">
-      <ul class="rail-list">
-        <li class="on">Open to internships</li>
-        <li>Software</li>
-        <li>Data</li>
-        <li>Product</li>
-      </ul>
-      <ul class="rail-list">
-        <li>Python</li>
-        <li>SQL</li>
-        <li>React</li>
-        <li>Pandas</li>
-        <li>Power BI</li>
-      </ul>
+    <figure class="hero-figure">
+      <img src="assets/img/profile.jpg" alt="Himanshu Malik" width="520" height="760" fetchpriority="high">
+    </figure>
+
+    <div class="hero-badge" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs><path id="badgePath" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"></path></defs>
+        <text><textPath href="#badgePath" textLength="232">Open to internships &middot; Since 2024 &middot; </textPath></text>
+      </svg>
+      <span class="core">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </span>
     </div>
 
     <div class="wrap">
@@ -93,48 +92,43 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.docu
 
       <h1 class="d-hero hero-name split">
         <span class="ln"><span>Himanshu</span></span>
-        <span class="ln"><span>Malik<em class="accent">.</em></span></span>
+        <span class="ln"><span>
+          <em class="outline">Malik</em>
+          <em class="accent">.</em>
+        </span></span>
       </h1>
 
       <div class="hero-foot">
         <div class="hero-role" data-reveal>
-          <p class="lede">Chemistry undergraduate. <em class="accent">Builder by habit.</em></p>
+          <p class="d-sm">Chemistry undergraduate. Builder by habit.</p>
           <p>IIT Kharagpur, Class of 2028, minor in Artificial Intelligence. I write code, analyse data, and think about product, and I have not decided which one wins yet.</p>
-          <div class="btn-row hero-cta">
-            <a href="contact.html" class="btn btn-light" data-magnet="0.25">Get in touch
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
-            </a>
-            <a href="projects.html" class="btn btn-ghost" data-magnet="0.25">See the work</a>
+        </div>
+
+        <div class="hero-stats" data-stagger>
+          <div class="hero-stat">
+            <span class="n"><span data-count="1">0</span>&#8202;<span class="accent">st</span></span>
+            <span class="k">Open IIT Data Analytics, Gold</span>
+          </div>
+          <div class="hero-stat">
+            <span class="n" data-count="8.49">0.00</span>
+            <span class="k">CGPA at IIT Kharagpur</span>
+          </div>
+          <div class="hero-stat">
+            <span class="n"><span data-count="9">0</span></span>
+            <span class="k">Shipped builds &amp; case studies</span>
           </div>
         </div>
+      </div>
 
-        <a class="hero-scroll" href="#intro">Scroll to explore
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      <div class="btn-row hero-cta" data-reveal>
+        <a href="contact.html" class="btn btn-light" data-magnet="0.25">Get in touch
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
+        <a href="projects.html" class="btn btn-ghost" data-magnet="0.25">See the work</a>
       </div>
     </div>
-  </section>
 
-  <!-- ============================== STATS ============================= -->
-  <section class="section section-tight bg-alt">
-    <div class="wrap">
-      <div class="hero-stats" data-stagger>
-        <div class="hero-stat">
-          <span class="n"><span data-count="1">0</span>&#8202;<span class="accent">st</span></span>
-          <span class="k">Open IIT Data Analytics, Gold</span>
-        </div>
-        <div class="hero-stat">
-          <span class="n" data-count="8.49">0.00</span>
-          <span class="k">CGPA at IIT Kharagpur</span>
-        </div>
-        <div class="hero-stat">
-          <span class="n"><span data-count="9">0</span></span>
-          <span class="k">Shipped builds &amp; case studies</span>
-        </div>
-      </div>
-    </div>
   </section>
-
 
   <!-- ============================ MARQUEE ============================ -->
   <div class="marquee" aria-hidden="true">
@@ -144,7 +138,7 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.docu
   </div>
 
   <!-- ============================= INTRO ============================= -->
-  <section class="section" id="intro">
+  <section class="section">
     <div class="wrap">
       <div class="sec-head">
         <div>
