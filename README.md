@@ -73,6 +73,8 @@ src/main.tsx            mounts the hero component
 src/index.css           Tailwind entry and the hero's HSL channel tokens
 components/ui/scroll-locked-video-hero.tsx     the hero itself
 scripts/copy-static.mjs build step that copies the static site into dist/
+tests/interaction-check.html   open in a browser: prints PASS/FAIL for the
+                        pointer layer. Not copied into dist/, so it never ships
 
 package.json  vite.config.ts  tsconfig.json  components.json  vercel.json
 dist/                   build output, git-ignored
@@ -145,7 +147,24 @@ page, so nothing needs registering.
 Also in the script, in source order: theme, preloader, custom cursor, scroll
 meter and hide-on-scroll header, mobile menu, reveal observer, hero dot-field
 canvas, marquee duplication, work hover preview, accordion, filters, the modal
-with deep linking, and the footer year.
+with deep linking, the footer year, and the pointer-lit surfaces below.
+
+### Interaction layer
+
+Three effects that need no markup at all, all of them in the INTERACTION LAYER
+block at the bottom of `css/styles.css`.
+
+| Effect | How it works |
+|---|---|
+| Pointer light | One delegated `mousemove` writes `--mx` `--my` `--rx` `--ry` onto the nearest `.card`, `.resume-panel`, `.tl-item`, `.stat` or `.feature-media`. CSS turns those into a spotlight that follows the cursor and a few degrees of tilt |
+| Dot-field everywhere | Every page hero carries the `#dotfield` canvas the homepage had. It reads its colours from the slab it sits in, so the dots are white on the magenta and bloom yellow around the cursor |
+| Scroll parallax | Hero washes and `.wide-figure` photos drift against the scroll on a `view()` timeline. Pure CSS, inside an `@supports` guard, so an unsupporting browser just gets a still photo |
+
+The pointer effects are skipped outright on a coarse pointer or under
+`prefers-reduced-motion`, in which case the custom properties keep their
+neutral defaults and every component renders exactly as it did before.
+`tests/interaction-check.html` fires a synthetic move at a card and prints
+PASS when the properties and the gradient come out right.
 
 ## Write-ups
 

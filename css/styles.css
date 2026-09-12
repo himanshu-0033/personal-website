@@ -1141,3 +1141,70 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   .site-header,.site-footer,.loader,.grain,.cursor,.cursor-ring,.progress,.modal{display:none !important}
   body{background:#fff;color:#000}
 }
+
+/* ==========================================================================
+   INTERACTION LAYER
+   Pointer- and scroll-driven decoration layered over the components above.
+   It reads --mx/--my/--rx/--ry, which js/script.js writes only on a fine
+   pointer with motion allowed, and a view() timeline where the browser has
+   one. With neither, every rule here collapses back to the static component.
+   ========================================================================== */
+
+/* The dot-field stops being homepage-only. Every page hero now carries the
+   same canvas: above the photo wash and its scrim, below the text. */
+.page-hero #dotfield{z-index:2;opacity:.5}
+
+/* ------------------------------ pointer light ---------------------------- */
+.card,.resume-panel,.tl-item,.stat,.feature-media{
+  --mx:50%;--my:50%;--rx:0deg;--ry:0deg;
+}
+.resume-panel,.tl-item,.stat{position:relative;overflow:hidden}
+.card::after,.resume-panel::after,.tl-item::after,.stat::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  /* --accent-wash is deliberately faint for flat fills; a spotlight needs
+     more, so mix a stronger one from the same token. Browsers without
+     color-mix keep the line above. */
+  background:radial-gradient(440px circle at var(--mx) var(--my),var(--accent-wash),transparent 62%);
+  background:radial-gradient(440px circle at var(--mx) var(--my),color-mix(in oklab,var(--accent) 16%,transparent),transparent 62%);
+  opacity:0;transition:opacity .5s var(--ease);
+}
+.card:hover::after,.resume-panel:hover::after,.tl-item:hover::after,.stat:hover::after{opacity:1}
+.card > *,.resume-panel > *,.tl-item > *,.stat > *{position:relative;z-index:1}
+
+/* the lift .card already had, now leaning toward the cursor as well */
+.card:hover{transform:translateY(-6px) perspective(900px) rotateX(var(--rx)) rotateY(var(--ry))}
+
+/* a framed photo leans the opposite way, so the frame reads as a window */
+.feature-media{perspective:900px}
+.feature-media img{transition:transform .7s var(--ease),filter .7s var(--ease)}
+.feature-media:hover img{
+  transform:scale(1.05) rotateX(calc(var(--rx) * -1)) rotateY(calc(var(--ry) * -1));
+}
+
+/* ---------------------------- scroll parallax ---------------------------- */
+/* view() timelines are pure enhancement: without support the photos sit
+   still, which is exactly what they did before. */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .page-hero.has-wash > .hero-wash{
+      animation:washDrift linear both;animation-timeline:view();
+    }
+    @keyframes washDrift{
+      from{transform:scale(1.18) translateY(-3.5%)}
+      to{transform:scale(1.18) translateY(3.5%)}
+    }
+    .wide-figure img{animation:figDrift linear both;animation-timeline:view()}
+    @keyframes figDrift{
+      from{transform:scale(1.16) translateY(-4.5%)}
+      to{transform:scale(1.16) translateY(4.5%)}
+    }
+    /* section rules draw themselves in as the section crosses the fold */
+    .sec-head .eyebrow::before{
+      animation:ruleDraw linear both;animation-timeline:view();animation-range:entry 10% cover 30%;
+      transform-origin:0 50%;
+    }
+    @keyframes ruleDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  }
+}
+
+@media print{#dotfield{display:none}}

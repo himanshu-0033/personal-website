@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>interaction layer self-check</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>body{padding:40px}#out{font:14px/1.7 monospace;white-space:pre;margin-top:24px}</style>
+</head>
+<body>
+<div class="cards"><article class="card" style="width:400px;height:240px"><h3 class="d-md">Card</h3><p>body</p></article></div>
+<div id="out">running...</div>
+<script src="../js/script.js"></script>
+<script>
+window.addEventListener("load", function () {
+  var card = document.querySelector(".card");
+  var r = card.getBoundingClientRect();
+  // pointer at 25% across, 75% down: expect --mx 25%, --my 75%, --rx +1deg, --ry -1deg
+  card.dispatchEvent(new MouseEvent("mousemove", {
+    bubbles: true, clientX: r.left + r.width * 0.25, clientY: r.top + r.height * 0.75
+  }));
+  var cs = getComputedStyle(card);
+  var lines = [
+    "--mx " + cs.getPropertyValue("--mx"),
+    "--my " + cs.getPropertyValue("--my"),
+    "--rx " + cs.getPropertyValue("--rx"),
+    "--ry " + cs.getPropertyValue("--ry"),
+    "spotlight " + getComputedStyle(card, "::after").backgroundImage.slice(0, 60),
+    "canvas rule " + (getComputedStyle(document.documentElement).getPropertyValue("--accent-2") || "(none)")
+  ];
+  var ok = cs.getPropertyValue("--mx").trim() === "25.0%" && cs.getPropertyValue("--my").trim() === "75.0%";
+  document.getElementById("out").textContent = (ok ? "PASS" : "FAIL") + "\n" + lines.join("\n");
+});
+</script>
+</body>
+</html>

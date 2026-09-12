@@ -244,11 +244,15 @@
       }
     };
 
+    // Read the palette off the slab the canvas sits in, not :root. The slab
+    // re-declares --fg as white and --accent-2 as the yellow counterpoint, so
+    // the field stays legible on the magenta in either theme; :root's ink is
+    // near-black, which on that ground is invisible.
     var readVars = function () {
-      var cs = getComputedStyle(root);
+      var cs = getComputedStyle(canvas.parentElement || root);
       return {
         base: cs.getPropertyValue("--fg").trim(),
-        hot: cs.getPropertyValue("--accent").trim()
+        hot: (cs.getPropertyValue("--accent-2") || "").trim() || cs.getPropertyValue("--accent").trim()
       };
     };
     var colors = readVars();
@@ -496,4 +500,28 @@
 
   /* ----------------------------------------------------------------- year */
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+  /* ------------------------------------------------- pointer-lit surfaces */
+  /* One delegated listener writes the cursor's position into custom
+     properties; the INTERACTION LAYER block in the stylesheet does the rest.
+     The rect is cached per element, so a move costs no layout read, and the
+     cache is dropped on scroll because that is what makes it stale. */
+  if (FINE && !REDUCED) {
+    var LIT = ".card,.resume-panel,.tl-item,.stat,.feature-media";
+    var litEl = null, litRect = null;
+
+    doc.addEventListener("mousemove", function (e) {
+      var el = e.target.closest ? e.target.closest(LIT) : null;
+      if (el !== litEl) { litEl = el; litRect = el ? el.getBoundingClientRect() : null; }
+      if (!litEl) return;
+      var px = (e.clientX - litRect.left) / litRect.width;
+      var py = (e.clientY - litRect.top) / litRect.height;
+      litEl.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+      litEl.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      litEl.style.setProperty("--rx", ((0.5 - py) * 4).toFixed(2) + "deg");
+      litEl.style.setProperty("--ry", ((px - 0.5) * 4).toFixed(2) + "deg");
+    }, { passive: true });
+
+    window.addEventListener("scroll", function () { litEl = null; }, { passive: true });
+  }
 })();
