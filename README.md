@@ -1,31 +1,87 @@
 # Himanshu Malik, personal website
 
-Static portfolio site. Seven hand-written HTML pages, one stylesheet, one script.
-No build step, no framework, no dependencies. Open `index.html` and it runs.
+Seven hand-written HTML pages, one stylesheet, one script. No build step, no
+framework, no dependencies. Open `index.html` and it runs.
 
-**Live pages:** Home · About · Skills · Experience · Projects · Education · Contact
+Alongside them sits one optional extra: `hero.html`, a React + Tailwind
+experiment built by Vite and deployed next to the static site. It is not linked
+from any page, and the seven pages do not know it exists.
+
+**Pages:** Home · About · Skills · Experience · Projects · Education · Contact
+
+---
+
+## Contents
+
+- [Run it](#run-it) · [Build and deploy](#build-and-deploy)
+- [File map](#file-map)
+- [Design system](#design-system) · [Class vocabulary](#class-vocabulary) · [Motion hooks](#motion-hooks)
+- [Write-ups](#write-ups) · [Images](#images)
+- [Accessibility](#accessibility-and-robustness) · [Editing notes](#editing-notes)
 
 ---
 
 ## Run it
 
+The static site needs nothing installed.
+
 ```bash
-python -m http.server 8000    # then open http://localhost:8000
+python -m http.server 8000     # http://localhost:8000
 ```
 
-Opening `index.html` directly from the filesystem also works; a server is only
-nicer because it gives clean URLs.
+Double-clicking `index.html` works too. A server is only nicer because it gives
+clean URLs.
 
-## Layout
+The React hero needs Node.
+
+```bash
+npm install
+npm run dev                    # Vite serves hero.html
+```
+
+## Build and deploy
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Vite dev server, `hero.html` only |
+| `npm run typecheck` | `tsc --noEmit` over `src`, `components`, `vite.config.ts` |
+| `npm run build` | typecheck, then `vite build`, then `scripts/copy-static.mjs` |
+| `npm run preview` | serve the built `dist/` |
+
+`vite build` is pointed at `hero.html` alone, so it can never rewrite
+`index.html` or the other six pages. Its own output lands in `dist/_hero/`
+rather than `dist/assets/`, which leaves `assets/` free for the real site.
+`scripts/copy-static.mjs` then copies the seven pages plus `css/`, `js/` and
+`assets/` into `dist/` verbatim, and throws if any of them is missing.
+
+Vercel reads `vercel.json`: build with `npm run build`, serve `dist/`. That one
+folder is the whole deploy, static site and hero together.
+
+## File map
 
 ```
 index.html  about.html  skills.html  experience.html
-projects.html  education.html  contact.html
-css/styles.css        design system: tokens, components, responsive, print
-js/script.js          all behaviour, vanilla, ~500 lines
-assets/img/           profile photo, IIT KGP mark (also the favicon)
-assets/resume/        three PDFs: SDE, Data, Product
+projects.html  education.html  contact.html    the site, hand-written
+css/styles.css          design system: tokens, components, responsive, print
+js/script.js            all behaviour, vanilla, ~500 lines
+assets/img/             photography, profile, IIT KGP mark (also the favicon)
+assets/img/CREDITS.md   Unsplash ids and crops for every photo
+assets/resume/          three PDFs: SDE, Data, Product
+
+hero.html               React mount point, standalone, unlinked
+src/main.tsx            mounts the hero component
+src/index.css           Tailwind entry and the hero's HSL channel tokens
+components/ui/scroll-locked-video-hero.tsx     the hero itself
+scripts/copy-static.mjs build step that copies the static site into dist/
+
+package.json  vite.config.ts  tsconfig.json  components.json  vercel.json
+dist/                   build output, git-ignored
+requirements.txt        the original brief, git-ignored, not shipped
 ```
+
+`dist/`, `node_modules/` and `requirements.txt` are ignored by git.
+`requirements.txt` is prose, not Python packages: it is the redesign brief,
+kept for reference.
 
 ## Design system
 
@@ -36,7 +92,7 @@ light grounds below.
 
 | | |
 |---|---|
-| Display | Archivo (variable `wdth` 62–125, `wght` 100–900) |
+| Display | Archivo (variable `wdth` 62-125, `wght` 100-900) |
 | Body | Inter Tight |
 | Meta / labels | JetBrains Mono |
 | Accent | `#c80552`, hover `#ff1575` |
@@ -44,12 +100,17 @@ light grounds below.
 | Ink / paper | `#0b0b0d` on `#ffffff` / `#f4f3ef` |
 
 Everything is driven by CSS custom properties on `:root`, with a full dark set
-under `html[data-theme="dark"]`. To reskin the site, change the tokens at the top
-of `css/styles.css` and nothing else.
+under `html[data-theme="dark"]`. To reskin the site, change the tokens at the
+top of `css/styles.css` and nothing else.
 
 Theme is chosen by the visitor, stored in `localStorage` under `hm-theme`, and
 applied by a tiny inline script in each `<head>` so there is no flash of the
 wrong theme on load.
+
+The React hero keeps its own palette in `src/index.css`. Those values must stay
+in space-separated HSL-channel form, because the component reads them as
+`hsl(var(--background))`; let a generator rewrite them to `oklch(...)` and every
+colour goes transparent.
 
 ### Class vocabulary
 
@@ -65,22 +126,26 @@ Compose pages from these; avoid inventing new classes.
 
 ### Motion hooks
 
-Markup opts into behaviour with attributes; `js/script.js` wires them up on any page.
+Markup opts into behaviour with attributes; `js/script.js` wires them up on any
+page, so nothing needs registering.
 
 | Hook | Effect |
 |---|---|
 | `data-reveal` | fade + rise when scrolled into view |
 | `data-stagger` | direct children rise in sequence |
-| `.split` + `<span class="ln"><span>…</span></span>` | masked line-by-line heading reveal |
+| `.split` + `<span class="ln"><span>...</span></span>` | masked line-by-line heading reveal |
 | `.clip-in` | wipe reveal on a media block |
 | `data-count="8.49"` | counts up from zero on entry |
 | `data-magnet="0.25"` | magnetic pull toward the cursor |
 | `data-cursor="View"` | word shown in the cursor bubble on hover |
 | `data-variant` / `data-cat-label` / `data-n` on `.workrow` | builds the floating hover preview |
+| `data-cat` + `data-filter` | project filtering |
+| `data-modal="<id>"` | opens the matching write-up template |
 
-Also in the script: preloader, custom cursor, interactive hero dot-field canvas,
-scroll progress bar, hide-on-scroll header, mobile menu, marquee duplication,
-accordion, project filtering, and the write-up modal with deep linking.
+Also in the script, in source order: theme, preloader, custom cursor, scroll
+meter and hide-on-scroll header, mobile menu, reveal observer, hero dot-field
+canvas, marquee duplication, work hover preview, accordion, filters, the modal
+with deep linking, and the footer year.
 
 ## Write-ups
 
@@ -90,10 +155,18 @@ template in the modal, and the id is pushed to the URL hash, so
 `projects.html#zepto` opens that write-up directly, and the homepage links into
 them that way.
 
-To add one: write the `<template>`, give it an id, and point a `data-modal` at it.
-No JavaScript changes needed.
+To add one: write the `<template>`, give it an id, and point a `data-modal` at
+it. No JavaScript changes needed.
 
-## Accessibility & robustness
+## Images
+
+Site photography comes from Unsplash, fetched as WebP and cropped and
+compressed at source, so there is no image build step.
+`assets/img/CREDITS.md` lists every file with its Unsplash id, crop and
+subject. Project thumbnails are 900x563; page heroes and the profile shot are
+listed alongside them.
+
+## Accessibility and robustness
 
 - Skip link, one `<h1>` per page, ordered headings, labelled landmarks
 - Focus trap and `Escape` handling in the modal; focus returns to the opener
@@ -102,16 +175,6 @@ No JavaScript changes needed.
 - Custom cursor and hover previews are suppressed on touch and coarse pointers
 - Content is plain HTML, so the pages read fine with JavaScript disabled
 - Print stylesheet strips the chrome
-
-## The hero portrait slot
-
-The reference hero uses a background-removed cut-out of the person on the right.
-`assets/img/profile.jpg` still has its indoor background, which reads as a pasted
-rectangle against the magenta, so **that side is intentionally left empty**.
-
-To fill it: save a transparent PNG as `assets/img/profile-cutout.png` (portrait,
-roughly 2:3, cropped at mid-thigh) and uncomment the `PORTRAIT SLOT` block in
-`index.html`. The `.hero-figure` CSS is already written, so no other change is needed.
 
 ## Editing notes
 
@@ -125,6 +188,8 @@ roughly 2:3, cropped at mid-thigh) and uncomment the `PORTRAIT SLOT` block in
   across all seven pages, so change one and change all seven
 - `.marquee-track` words are written once; the script duplicates the track for the
   seamless loop
+- A new page also has to be added to `STATIC` in `scripts/copy-static.mjs`, or it
+  never reaches the deploy
 
 ---
 
