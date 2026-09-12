@@ -1,7 +1,8 @@
 /* =========================================================================
-   Himanshu Malik, v3 "Signal"
-   Light editorial ground, near-black ink, one hot crimson accent.
+   Himanshu Malik, v4 "Chrome"
+   Black ground, white ink, no hue anywhere but the hero object.
    Display: Archivo (variable wdth+wght) · Body: Inter Tight · Meta: JetBrains Mono
+   Night is the default; light is the inversion, not the other way round.
    ========================================================================= */
 
 /* ---------------------------------- reset -------------------------------- */
@@ -16,30 +17,32 @@ dl,dd,dt{margin:0}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
 /* ---------------------------------- tokens ------------------------------- */
+/* Light is the inverted set: white paper, black ink, same greys mirrored.
+   Nothing here carries a hue, so every component reads as tone alone. */
 :root{
   --bg:#ffffff;
-  --bg-alt:#f4f3ef;
-  --bg-sunk:#eceae3;
-  --fg:#0b0b0d;
-  --fg-2:rgba(11,11,13,.66);
-  --fg-3:rgba(11,11,13,.44);
-  --line:rgba(11,11,13,.13);
-  --line-2:rgba(11,11,13,.07);
+  --bg-alt:#f2f2f2;
+  --bg-sunk:#e8e8e8;
+  --fg:#000000;
+  --fg-2:rgba(0,0,0,.62);
+  --fg-3:rgba(0,0,0,.38);
+  --line:rgba(0,0,0,.14);
+  --line-2:rgba(0,0,0,.07);
 
-  --band-bg:#0b0b0d;
-  --band-fg:#f6f4f0;
-  --band-fg-2:rgba(246,244,240,.66);
-  --band-line:rgba(246,244,240,.16);
+  --band-bg:#000000;
+  --band-fg:#ffffff;
+  --band-fg-2:rgba(255,255,255,.62);
+  --band-line:rgba(255,255,255,.16);
 
-  --accent:#c80552;
-  --accent-hot:#ff1575;
+  --accent:#000000;
+  --accent-hot:#000000;
   --accent-ink:#ffffff;
-  --accent-wash:rgba(200,5,82,.07);
-  --accent-2:#ffcc00;
+  --accent-wash:rgba(0,0,0,.06);
+  --accent-2:rgba(0,0,0,.5);
 
   --card:#ffffff;
-  --shadow-sm:0 1px 2px rgba(11,11,13,.05),0 6px 18px -8px rgba(11,11,13,.14);
-  --shadow-lg:0 30px 70px -30px rgba(11,11,13,.34),0 2px 6px rgba(11,11,13,.05);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05),0 6px 18px -8px rgba(0,0,0,.14);
+  --shadow-lg:0 30px 70px -30px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.05);
 
   --display:'Archivo',"Helvetica Neue",Arial,sans-serif;
   --sans:'Inter Tight','Inter',"Helvetica Neue",Arial,sans-serif;
@@ -47,34 +50,36 @@ dl,dd,dt{margin:0}
 
   --pad:clamp(20px,4.6vw,84px);
   --max:1560px;
-  --sec:clamp(84px,10.5vw,168px);
+  --sec:clamp(96px,12vw,208px);
   --bar:74px;
 
   --ease:cubic-bezier(.22,1,.36,1);
 }
 
+/* Night, and the default: true black, so the hero object is the only thing
+   on the page with a colour in it. */
 html[data-theme="dark"]{
-  --bg:#0a0a0c;
-  --bg-alt:#111114;
-  --bg-sunk:#16161a;
-  --fg:#f4f2ee;
-  --fg-2:rgba(244,242,238,.66);
-  --fg-3:rgba(244,242,238,.42);
-  --line:rgba(244,242,238,.15);
-  --line-2:rgba(244,242,238,.08);
+  --bg:#000000;
+  --bg-alt:#070708;
+  --bg-sunk:#0c0c0e;
+  --fg:#ffffff;
+  --fg-2:rgba(255,255,255,.6);
+  --fg-3:rgba(255,255,255,.36);
+  --line:rgba(255,255,255,.14);
+  --line-2:rgba(255,255,255,.07);
 
-  --band-bg:#17171c;
-  --band-fg:#f6f4f0;
-  --band-fg-2:rgba(246,244,240,.66);
-  --band-line:rgba(246,244,240,.16);
+  --band-bg:#08080a;
+  --band-fg:#ffffff;
+  --band-fg-2:rgba(255,255,255,.6);
+  --band-line:rgba(255,255,255,.14);
 
-  --accent:#ff2f72;
-  --accent-hot:#ff6699;
-  --accent-ink:#0a0a0c;
-  --accent-wash:rgba(255,47,114,.1);
-  --accent-2:#ffcc00;
+  --accent:#ffffff;
+  --accent-hot:#ffffff;
+  --accent-ink:#000000;
+  --accent-wash:rgba(255,255,255,.07);
+  --accent-2:rgba(255,255,255,.5);
 
-  --card:#131317;
+  --card:#0a0a0c;
   --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 6px 18px -8px rgba(0,0,0,.6);
   --shadow-lg:0 30px 70px -30px rgba(0,0,0,.8),0 2px 6px rgba(0,0,0,.4);
 }
@@ -97,22 +102,27 @@ body.is-locked{overflow:hidden}
 ::selection{background:var(--accent);color:var(--accent-ink)}
 
 /* ------------------------------- typography ------------------------------ */
+/* The display face is no longer condensed and heavy. Big sizes run light and
+   full-width, the way the reference sets its headlines; small sizes stay
+   semi-bold, because Archivo at 400 goes limp under about 1.2rem. */
 .d-hero,.d-xl,.d-lg,.d-md,.d-sm{
   font-family:var(--display);
-  font-weight:800;
-  line-height:.9;
-  letter-spacing:-.035em;
-  font-variation-settings:'wdth' 88;
+  font-weight:400;
+  line-height:.96;
+  letter-spacing:-.028em;
+  font-variation-settings:'wdth' 100;
   text-wrap:balance;
 }
-.d-hero{font-size:clamp(3.4rem,13vw,12rem);line-height:.82;letter-spacing:-.05em;font-weight:900;font-variation-settings:'wdth' 78}
-.d-xl{font-size:clamp(2.4rem,6.5vw,5.6rem);line-height:.92;letter-spacing:-.042em}
-.d-lg{font-size:clamp(1.7rem,3.3vw,2.9rem);line-height:1.02;letter-spacing:-.032em}
-.d-md{font-size:clamp(1.18rem,1.85vw,1.6rem);line-height:1.16;letter-spacing:-.024em;font-weight:700;font-variation-settings:'wdth' 95}
-.d-sm{font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.25;letter-spacing:-.015em;font-weight:700;font-variation-settings:'wdth' 100}
+.d-hero{font-size:clamp(3rem,11.5vw,10.5rem);line-height:.9;letter-spacing:-.036em;font-weight:400}
+.d-xl{font-size:clamp(2.3rem,6.4vw,5.8rem);line-height:.94;letter-spacing:-.032em;font-weight:400}
+.d-lg{font-size:clamp(1.7rem,3.3vw,3rem);line-height:1.04;letter-spacing:-.028em;font-weight:500}
+.d-md{font-size:clamp(1.18rem,1.85vw,1.6rem);line-height:1.18;letter-spacing:-.022em;font-weight:600}
+.d-sm{font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.25;letter-spacing:-.015em;font-weight:600}
 
-.outline{color:transparent;-webkit-text-stroke:1.5px var(--fg);paint-order:stroke fill}
-.accent{color:var(--accent)}
+.outline{color:transparent;-webkit-text-stroke:1px var(--fg);paint-order:stroke fill}
+/* Not an accent any more: the quiet half of a two-tone headline, grey
+   against white, exactly as the reference splits its sentences. */
+.accent{color:var(--fg-3)}
 
 .eyebrow{
   font-family:var(--mono);
@@ -129,12 +139,15 @@ body.is-locked{overflow:hidden}
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);flex:none}
 .eyebrow.bare::before{display:none}
 
+/* The reference runs its standfirst heavier than its headline, which is what
+   keeps a page of near-empty black from reading as unfinished. */
 .lede{
-  font-size:clamp(1.05rem,1.45vw,1.3rem);
-  line-height:1.52;
-  color:var(--fg-2);
-  letter-spacing:-.012em;
-  max-width:58ch;
+  font-size:clamp(1.1rem,1.55vw,1.42rem);
+  line-height:1.42;
+  font-weight:600;
+  color:var(--fg);
+  letter-spacing:-.018em;
+  max-width:52ch;
   text-wrap:pretty;
 }
 p{text-wrap:pretty}
@@ -166,7 +179,7 @@ p + p{margin-top:1.05em}
 
 .skip-link{
   position:fixed;top:10px;left:10px;z-index:9999;
-  background:var(--accent);color:#fff;
+  background:var(--accent);color:var(--accent-ink);
   padding:10px 18px;font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;
   text-transform:uppercase;transform:translateY(-200%);transition:transform .25s var(--ease);
 }
@@ -244,7 +257,7 @@ html.loading body{overflow:hidden}
 .cursor-label{
   position:fixed;top:0;left:0;z-index:9600;pointer-events:none;
   font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
-  background:var(--accent);color:#fff;padding:9px 15px;border-radius:100px;
+  background:var(--accent);color:var(--accent-ink);padding:9px 15px;border-radius:100px;
   transform:translate(-50%,-50%) scale(.4);opacity:0;
   transition:transform .3s var(--ease),opacity .25s var(--ease);
   white-space:nowrap;
@@ -261,7 +274,7 @@ html.loading body{overflow:hidden}
 .site-header:not(.stuck) .wordmark{color:#fff}
 .site-header:not(.stuck) .theme-btn{color:rgba(255,255,255,.82);border-color:rgba(255,255,255,.28)}
 .site-header:not(.stuck) .theme-btn:hover{color:#fff;border-color:#fff}
-.site-header:not(.stuck) .header-cta{background:var(--accent);color:#fff}
+.site-header:not(.stuck) .header-cta{background:#fff;color:#000}
 .site-header:not(.stuck) .menu-btn{border-color:rgba(255,255,255,.28)}
 .site-header:not(.stuck) .menu-btn i{background:#fff}
 @media (min-width:1025px){
@@ -317,10 +330,10 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
 
 .header-cta{
   font-family:var(--mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:12px 22px;background:var(--accent);color:#fff;border-radius:100px;
+  padding:12px 22px;background:var(--accent);color:var(--accent-ink);border-radius:100px;
   transition:background .3s var(--ease),color .3s var(--ease);white-space:nowrap;
 }
-.header-cta:hover{background:var(--accent-hot);color:#fff}
+.header-cta:hover{background:var(--accent-hot);color:var(--accent-ink)}
 
 .menu-btn{display:none;width:42px;height:42px;place-items:center;border:1px solid var(--line);border-radius:50%}
 .menu-btn i{display:block;width:17px;height:1.4px;background:var(--fg);transition:transform .35s var(--ease),opacity .25s}
@@ -345,15 +358,15 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
 .btn:hover::before{transform:none}
 .btn svg{transition:transform .4s var(--ease)}
 .btn:hover svg{transform:translate(4px,-4px)}
-.btn-solid{background:var(--accent);color:#fff}
-.btn-solid:hover{color:#fff}
+.btn-solid{background:var(--accent);color:var(--accent-ink)}
+.btn-solid:hover{color:var(--accent-ink)}
 .btn-ink{background:var(--fg);color:var(--bg)}
-.btn-ink:hover{color:#fff}
+.btn-ink:hover{color:var(--accent-ink)}
 .btn-ghost{border-color:var(--line);color:var(--fg)}
-.btn-ghost:hover{color:#fff;border-color:var(--accent-hot)}
+.btn-ghost:hover{color:var(--accent-ink);border-color:var(--accent-hot)}
 .band .btn-ghost{border-color:var(--band-line);color:var(--band-fg)}
 .btn-light{background:var(--band-fg);color:var(--band-bg)}
-.btn-light:hover{color:#fff}
+.btn-light:hover{color:var(--accent-ink)}
 .btn-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 
 .link-arrow{
@@ -407,21 +420,25 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
    both themes and every child inherits the on-dark palette. */
 .dark-slab{
   --fg:#ffffff;
-  --fg-2:rgba(255,255,255,.76);
-  --fg-3:rgba(255,255,255,.5);
-  --line:rgba(255,255,255,.2);
-  --line-2:rgba(255,255,255,.1);
-  --card:rgba(255,255,255,.06);
+  --fg-2:rgba(255,255,255,.62);
+  --fg-3:rgba(255,255,255,.38);
+  --line:rgba(255,255,255,.16);
+  --line-2:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.05);
+  --accent:#ffffff;
+  --accent-hot:#ffffff;
+  --accent-ink:#000000;
   --accent-wash:rgba(255,255,255,.08);
-  background:
-    radial-gradient(118% 96% at 76% 34%,#ff1575 0%,#c80552 30%,#78033a 56%,#2a0616 80%,#0d0308 100%),
-    #0b0b0d;
+  --accent-2:rgba(255,255,255,.55);
+  /* Flat black with one barely-there lift behind the middle, so the hero
+     object has somewhere to sit instead of floating on a void. */
+  background:radial-gradient(120% 92% at 50% 44%,#141418 0%,#070708 48%,#000000 80%),#000000;
   color:var(--fg);
 }
-.dark-slab .eyebrow{color:rgba(255,255,255,.66)}
-.dark-slab .eyebrow::before{background:var(--accent-2)}
+.dark-slab .eyebrow{color:rgba(255,255,255,.5)}
+.dark-slab .eyebrow::before{background:rgba(255,255,255,.5)}
 .dark-slab .outline{-webkit-text-stroke-color:#fff}
-.dark-slab .accent{color:var(--accent-2)}
+.dark-slab .accent{color:rgba(255,255,255,.42)}
 
 .hero{
   position:relative;min-height:100svh;
@@ -429,47 +446,24 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
   padding-top:calc(var(--bar) + 40px);padding-bottom:clamp(28px,4vw,56px);
   overflow:hidden;
 }
-#dotfield{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.55}
+/* The object owns the middle of the hero; type sits above it and, where they
+   overlap, reads straight over the chrome the way the reference does. */
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:1}
 .hero > .wrap{position:relative;z-index:3;width:100%}
 
-/* oversized watermark of the headline, exactly as the reference does it */
-.hero-ghost{
-  position:absolute;left:0;right:0;top:clamp(90px,16vh,190px);z-index:1;
-  padding-inline:var(--pad);pointer-events:none;user-select:none;
-  font-family:var(--display);font-weight:900;font-variation-settings:'wdth' 74;
-  font-size:clamp(6rem,21vw,20rem);line-height:.8;letter-spacing:-.055em;
-  color:rgba(255,255,255,.055);white-space:nowrap;overflow:hidden;
-}
-
-/* portrait, right, arch-framed and lit from behind */
-.hero-figure{
-  position:absolute;right:clamp(-40px,2vw,64px);bottom:0;z-index:2;
-  width:clamp(300px,34vw,520px);height:min(84svh,760px);
+/* disciplines stacked in a mono rail down the left edge */
+.hero-rail{
+  position:absolute;z-index:3;left:var(--pad);
+  top:calc(var(--bar) + clamp(48px,10vh,120px));
+  display:flex;flex-direction:column;gap:clamp(20px,3vh,34px);
   pointer-events:none;
 }
-.hero-figure::before{
-  content:"";position:absolute;inset:-14% -10%;
-  background:radial-gradient(closest-side,rgba(255,21,117,.5),transparent 72%);
-  filter:blur(28px);
+.rail-list{display:flex;flex-direction:column;gap:6px}
+.rail-list li{
+  font-family:var(--mono);font-size:.625rem;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--fg-3);line-height:1.55;
 }
-.hero-figure img{
-  position:relative;width:100%;height:100%;object-fit:cover;object-position:center 16%;
-  border-radius:50% 50% 10px 10px / 34% 34% 10px 10px;
-  /* profile.jpg keeps its indoor background, so rather than a cut-out it is
-     blended into the slab: desaturated, luminosity-blended so it takes the
-     gradient's colour, and feathered on three edges. Drop in a transparent
-     PNG later and the filter/blend/mask lines are the only ones to remove. */
-  filter:grayscale(1) contrast(1.06);
-  mix-blend-mode:luminosity;opacity:.92;
-  -webkit-mask-image:
-    linear-gradient(to top,transparent 0,#000 20%,#000 80%,transparent 100%),
-    linear-gradient(to right,transparent 0,#000 24%);
-  mask-image:
-    linear-gradient(to top,transparent 0,#000 20%,#000 80%,transparent 100%),
-    linear-gradient(to right,transparent 0,#000 24%);
-  -webkit-mask-composite:source-in;
-  mask-composite:intersect;
-}
+.rail-list li.on{color:var(--fg)}
 
 .hero-top{
   display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
@@ -478,8 +472,13 @@ html[data-theme="dark"] .theme-btn .moon{display:block}
 .hero-top .eyebrow{color:var(--fg-3)}
 
 .hero-name{margin-bottom:clamp(28px,4vw,54px)}
-.hero-name .ln > span{display:flex;align-items:center;gap:.18em}
+.hero-name .ln > span{display:flex;align-items:center;gap:.06em}
 .hero-name em{font-style:normal}
+@media (min-width:1025px){
+  /* headline hard right, against the rail, over the object */
+  .hero-name{text-align:right}
+  .hero-name .ln > span{justify-content:flex-end}
+}
 
 /* the loader owns the first paint: hold hero motion until it lifts */
 html.loading .hero .split .ln > span,
@@ -500,40 +499,33 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
 
 .hero-foot{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr) auto;
   gap:clamp(24px,3.6vw,60px);
   align-items:end;
   border-top:1px solid var(--line);
   padding-top:clamp(24px,3vw,40px);
-  max-width:min(100%,980px);
 }
 .hero-cta{margin-top:clamp(24px,3vw,38px)}
 .hero-role p{max-width:46ch;color:var(--fg-2);font-size:1.06rem}
-.hero-role .d-sm{color:var(--fg);margin-bottom:10px}
+.hero-role .lede{color:var(--fg);margin-bottom:12px}
+
+.hero-scroll{
+  font-family:var(--mono);font-size:.625rem;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--fg-3);display:inline-flex;align-items:center;gap:12px;white-space:nowrap;
+  transition:color .35s var(--ease);
+}
+.hero-scroll:hover{color:var(--fg)}
+.hero-scroll svg{animation:nudge 2.6s var(--ease) infinite}
+@keyframes nudge{0%,100%{transform:none}50%{transform:translateY(6px)}}
 
 .hero-stats{display:flex;gap:clamp(20px,3vw,48px);flex-wrap:wrap}
 .hero-stat .n{
-  font-family:var(--display);font-weight:800;font-variation-settings:'wdth' 84;
-  font-size:clamp(1.7rem,3vw,2.5rem);line-height:1;letter-spacing:-.04em;display:block;
+  font-family:var(--display);font-weight:400;font-variation-settings:'wdth' 100;
+  font-size:clamp(1.9rem,3.4vw,3rem);line-height:1;letter-spacing:-.035em;display:block;
 }
 .hero-stat .k{
   font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--fg-3);display:block;margin-top:8px;max-width:19ch;line-height:1.55;
-}
-
-.hero-badge{
-  position:absolute;z-index:4;
-  right:clamp(18px,5vw,110px);bottom:clamp(30px,6vh,86px);
-  width:clamp(104px,11vw,150px);aspect-ratio:1;
-  border-radius:50%;background:var(--accent-2);
-  display:grid;place-items:center;
-  box-shadow:0 18px 46px -14px rgba(0,0,0,.55);
-}
-.hero-badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 20s linear infinite}
-.hero-badge text{font-family:var(--mono);font-weight:500;font-size:7px;fill:#1b1205;text-transform:uppercase}
-.hero-badge .core{
-  width:48%;aspect-ratio:1;border-radius:50%;
-  background:var(--accent);display:grid;place-items:center;color:#fff;
+  color:var(--fg-3);display:block;margin-top:10px;max-width:19ch;line-height:1.55;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -613,7 +605,7 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
   transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease),transform .4s var(--ease);
 }
 .band .workrow-go{border-color:var(--band-line)}
-.workrow:hover .workrow-go{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.workrow:hover .workrow-go{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:rotate(45deg)}
 
 .hover-preview{
   position:fixed;top:0;left:0;z-index:60;width:300px;height:210px;
@@ -752,7 +744,7 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
 .feature-tag{
   position:absolute;left:18px;bottom:18px;z-index:2;
   font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
-  background:var(--accent);color:#fff;padding:9px 14px;border-radius:100px;
+  background:var(--accent);color:var(--accent-ink);padding:9px 14px;border-radius:100px;
 }
 .medal{
   display:inline-flex;align-items:center;gap:12px;
@@ -779,7 +771,7 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
 .acc-icon::before,.acc-icon::after{content:"";position:absolute;background:currentColor}
 .acc-icon::before{width:12px;height:1.4px}
 .acc-icon::after{width:1.4px;height:12px;transition:transform .4s var(--ease)}
-.acc-item.open .acc-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(180deg)}
+.acc-item.open .acc-icon{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:rotate(180deg)}
 .acc-item.open .acc-icon::after{transform:scaleY(0)}
 .acc-a{overflow:hidden;height:0;transition:height .55s var(--ease)}
 .acc-a-inner{padding-bottom:clamp(22px,2.4vw,34px);max-width:74ch;color:var(--fg-2)}
@@ -794,7 +786,7 @@ html.loading .hero [data-stagger] > *{opacity:0;transform:translateY(28px)}
 }
 .tags li:hover,.tag:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-wash)}
 .band .tags li,.band .tag{border-color:var(--band-line);color:var(--band-fg-2)}
-.tag-solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.tag-solid{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 
 /* --------------------------------- meters -------------------------------- */
 .meter{display:flex;flex-direction:column;gap:9px}
@@ -942,7 +934,7 @@ html[data-theme="dark"] .resume-list a{background:var(--bg-alt)}
   display:grid;place-items:center;color:var(--band-fg-2);
   transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
 }
-.socials a:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-3px)}
+.socials a:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:translateY(-3px)}
 .to-top{display:inline-flex;align-items:center;gap:9px;transition:color .3s}
 .to-top:hover{color:var(--band-fg)}
 
@@ -970,7 +962,7 @@ html[data-theme="dark"] .resume-list a{background:var(--bg-alt)}
   width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;
   transition:background .3s var(--ease),color .3s var(--ease),transform .4s var(--ease);flex:none;
 }
-.modal-close:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(90deg)}
+.modal-close:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:rotate(90deg)}
 .modal-scroll{overflow-y:auto;padding:clamp(28px,4vw,60px) clamp(22px,3vw,48px) clamp(48px,6vw,90px);overscroll-behavior:contain}
 
 .post{max-width:66ch;margin-inline:auto}
@@ -1030,7 +1022,8 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   filter:grayscale(1) contrast(1.05);opacity:.5;
   transition:opacity .55s var(--ease),transform .7s var(--ease),filter .55s var(--ease);
 }
-.card:hover .tile-img{opacity:.8;transform:scale(1.05);filter:grayscale(0) contrast(1)}
+/* stays grey on hover: the palette has no colour to reveal any more */
+.card:hover .tile-img{opacity:.75;transform:scale(1.05);filter:grayscale(1) contrast(1.18)}
 /* pull the grid and the accent blob back where a photo is doing the work */
 .tile:has(.tile-img)::before{opacity:.4}
 .tile:has(.tile-img)::after{opacity:.42}
@@ -1105,8 +1098,6 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   .stack-item{position:static;grid-template-columns:1fr;gap:18px;padding:28px 24px}
   .stack-side{grid-column:1}
   .hero-foot{grid-template-columns:1fr;row-gap:26px}
-  .hero-badge{width:92px;right:16px;bottom:auto;top:calc(var(--bar) + 18px)}
-  .hero-figure{width:min(58vw,340px);opacity:.5}
   .modal-dialog{border-radius:0;max-height:100svh;height:100svh;width:100%}
 }
 
@@ -1114,8 +1105,6 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   .hero{min-height:92svh}
   .hero-name .ln > span{gap:.1em}
   .hero-portrait{display:none}
-  .hero-figure,.hero-badge{display:none}
-  .hero-ghost{font-size:8rem}
   .footer-top{grid-template-columns:1fr}
   .cards{grid-template-columns:1fr}
   .trow{grid-template-columns:1fr}
@@ -1142,6 +1131,13 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   body{background:#fff;color:#000}
 }
 
+/* Every photograph on the site is tone only. The reference carries no colour
+   outside its hero object, and a single colour portrait is enough to break
+   that, so the grayscale lives here rather than on each component. */
+.feature-media img,.wide-figure img,.hero-wash,.contact-portrait img,.hero-portrait img,.stack-media img{
+  filter:grayscale(1) contrast(1.04);
+}
+
 /* ==========================================================================
    INTERACTION LAYER
    Pointer- and scroll-driven decoration layered over the components above.
@@ -1152,7 +1148,9 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
 
 /* The dot-field stops being homepage-only. Every page hero now carries the
    same canvas: above the photo wash and its scrim, below the text. */
-.page-hero #dotfield{z-index:2;opacity:.5}
+/* On inner pages the object is furniture, not the subject: pushed right,
+   out from behind the title, and dimmed under the text. */
+.page-hero #hero-canvas{left:auto;right:-4%;width:56%;z-index:1;opacity:.6}
 
 /* ------------------------------ pointer light ---------------------------- */
 .card,.resume-panel,.tl-item,.stat,.feature-media{
@@ -1207,4 +1205,4 @@ html[data-theme="dark"] .post-tags li span{background:var(--card)}
   }
 }
 
-@media print{#dotfield{display:none}}
+@media print{#hero-canvas{display:none}}

@@ -218,98 +218,149 @@
   };
   observeAll(doc);
 
-  /* -------------------------------------------------------- hero dotfield */
-  var canvas = $("#dotfield");
+  /* ----------------------------------------------------- hero centrepiece */
+  /* An iridescent liquid form standing in for the reference's rendered chrome
+     blob. It is drawn at a fraction of the display size and scaled up, because
+     the upscale is what softens it, and that costs far less per frame than
+     blurring at full size.
+
+     What sells metal is banding, not blur: a hard light-to-dark environment
+     gradient down the body, the oil-slick screened over it, one specular lobe,
+     and a far side that falls into the black. Three sine harmonics give the
+     silhouette, and the edge facing the cursor swells toward it. */
+  var canvas = $("#hero-canvas");
   if (canvas && !REDUCED) {
     var ctx = canvas.getContext("2d");
-    var dots = [];
-    var W = 0, H = 0, DPR = 1;
-    var pointer = { x: -9999, y: -9999 };
-    var GAP = 34, R = 150;
+    var buf = doc.createElement("canvas");
+    var bx = buf.getContext("2d");
+    var W = 0, H = 0, BW = 0, BH = 0, rect = null;
+    var SCALE = 0.45;
+    var pull = 0, pullTo = 0, ang = 0;
+    var HARM = [[3, 0.10, 0.62], [5, 0.055, -0.94], [2, 0.075, 0.37]];
 
-    var build = function () {
-      var rect = canvas.getBoundingClientRect();
-      DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = rect.width; H = rect.height;
-      canvas.width = Math.round(W * DPR);
-      canvas.height = Math.round(H * DPR);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      dots = [];
-      var cols = Math.ceil(W / GAP), rows = Math.ceil(H / GAP);
-      var ox = (W - (cols - 1) * GAP) / 2, oy = (H - (rows - 1) * GAP) / 2;
-      for (var i = 0; i < cols; i++) {
-        for (var j = 0; j < rows; j++) {
-          dots.push({ x: ox + i * GAP, y: oy + j * GAP, cx: ox + i * GAP, cy: oy + j * GAP, s: 0 });
-        }
+    var size = function () {
+      rect = canvas.getBoundingClientRect();
+      W = Math.max(1, rect.width); H = Math.max(1, rect.height);
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      BW = Math.max(60, Math.round(W * SCALE));
+      BH = Math.max(60, Math.round(H * SCALE));
+      buf.width = BW; buf.height = BH;
+    };
+
+    var path = function (t, cx, cy, R) {
+      bx.beginPath();
+      for (var i = 0; i <= 180; i++) {
+        var th = i / 180 * Math.PI * 2;
+        var rr = 1;
+        for (var h = 0; h < 3; h++) rr += HARM[h][1] * Math.sin(HARM[h][0] * th + t * HARM[h][2]);
+        var face = Math.cos(th - ang);
+        if (face > 0) rr += face * face * pull * 0.24;
+        var x = cx + Math.cos(th) * R * rr, y = cy + Math.sin(th) * R * rr;
+        if (i) bx.lineTo(x, y); else bx.moveTo(x, y);
       }
+      bx.closePath();
     };
-
-    // Read the palette off the slab the canvas sits in, not :root. The slab
-    // re-declares --fg as white and --accent-2 as the yellow counterpoint, so
-    // the field stays legible on the magenta in either theme; :root's ink is
-    // near-black, which on that ground is invisible.
-    var readVars = function () {
-      var cs = getComputedStyle(canvas.parentElement || root);
-      return {
-        base: cs.getPropertyValue("--fg").trim(),
-        hot: (cs.getPropertyValue("--accent-2") || "").trim() || cs.getPropertyValue("--accent").trim()
-      };
-    };
-    var colors = readVars();
 
     var t = 0;
     var draw = function () {
-      ctx.clearRect(0, 0, W, H);
-      t += 0.006;
-      for (var i = 0; i < dots.length; i++) {
-        var d = dots[i];
-        // slow ambient wave
-        var wave = Math.sin(d.cx * 0.012 + t) * Math.cos(d.cy * 0.014 - t) * 2.2;
-        var tx = d.cx + wave, ty = d.cy + wave * 0.6;
-        var dx = tx - pointer.x, dy = ty - pointer.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        var f = dist < R ? (1 - dist / R) : 0;
-        if (f > 0) {
-          var push = f * f * 26;
-          tx += (dx / (dist || 1)) * push;
-          ty += (dy / (dist || 1)) * push;
-        }
-        d.x += (tx - d.x) * 0.14;
-        d.y += (ty - d.y) * 0.14;
-        d.s += (f - d.s) * 0.14;
+      t += 0.005;
+      pull += (pullTo - pull) * 0.06;
 
-        var rad = 0.9 + d.s * 2.4;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, rad, 0, 6.2832);
-        if (d.s > 0.04) {
-          ctx.fillStyle = colors.hot;
-          ctx.globalAlpha = 0.18 + d.s * 0.72;
-        } else {
-          ctx.fillStyle = colors.base;
-          ctx.globalAlpha = 0.13;
-        }
-        ctx.fill();
+      var cx = BW * 0.46, cy = BH * 0.5, R = Math.min(BW, BH) * 0.27;
+      var sweep = Math.sin(t * 0.5) * R * 0.3;   // the horizon slides as it turns
+      bx.clearRect(0, 0, BW, BH);
+
+      // 1. the environment: a polished body reflects a hard horizon
+      var env = bx.createLinearGradient(cx - R * 0.5, cy - R * 1.1 + sweep, cx + R * 0.4, cy + R * 1.1 + sweep);
+      env.addColorStop(0.00, "#05070b");
+      env.addColorStop(0.16, "#8ea6bd");
+      env.addColorStop(0.30, "#ffffff");
+      env.addColorStop(0.38, "#c3d2de");
+      env.addColorStop(0.47, "#0a0d13");
+      env.addColorStop(0.58, "#20262f");
+      env.addColorStop(0.70, "#eef4f8");
+      env.addColorStop(0.82, "#61748a");
+      env.addColorStop(1.00, "#05070b");
+      path(t, cx, cy, R);
+      bx.fillStyle = env;
+      bx.fill();
+
+      // 2. the oil-slick, screened over the metal so it tints without flattening
+      if (bx.createConicGradient) {
+        var g = bx.createConicGradient(t * 0.4, cx, cy);
+        g.addColorStop(0.00, "#04212b");
+        g.addColorStop(0.12, "#1e6f7d");
+        g.addColorStop(0.26, "#06131c");
+        g.addColorStop(0.40, "#3b3f86");
+        g.addColorStop(0.54, "#06131c");
+        g.addColorStop(0.66, "#8a4620");
+        g.addColorStop(0.78, "#0b1a22");
+        g.addColorStop(0.90, "#2c6a72");
+        g.addColorStop(1.00, "#04212b");
+        bx.globalCompositeOperation = "screen";
+        bx.globalAlpha = 0.55;
+        path(t, cx, cy, R);
+        bx.fillStyle = g;
+        bx.fill();
+        bx.globalAlpha = 1;
       }
+
+      // 3. specular: one bright lobe up and left
+      bx.globalCompositeOperation = "screen";
+      var s = bx.createRadialGradient(cx - R * 0.38, cy - R * 0.46, 0, cx - R * 0.38, cy - R * 0.46, R * 0.8);
+      s.addColorStop(0, "rgba(255,255,255,.8)");
+      s.addColorStop(1, "rgba(255,255,255,0)");
+      path(t, cx, cy, R);
+      bx.fillStyle = s; bx.fill();
+
+      // 4. the far side falls into the black, so the form has a near and far
+      bx.globalCompositeOperation = "multiply";
+      var d = bx.createRadialGradient(cx + R * 0.5, cy + R * 0.56, R * 0.06, cx + R * 0.5, cy + R * 0.56, R * 1.25);
+      d.addColorStop(0, "rgba(0,0,0,.8)");
+      d.addColorStop(1, "rgba(255,255,255,1)");
+      path(t, cx, cy, R);
+      bx.fillStyle = d; bx.fill();
+      // 5. feather the rim, so the form floats in the black instead of
+      //    sitting on it as a hard dark mass
+      bx.globalCompositeOperation = "destination-out";
+      var fade = bx.createRadialGradient(cx, cy, R * 0.86, cx, cy, R * 1.16);
+      fade.addColorStop(0, "rgba(0,0,0,0)");
+      fade.addColorStop(1, "rgba(0,0,0,1)");
+      bx.fillStyle = fade;
+      bx.fillRect(0, 0, BW, BH);
+      bx.globalCompositeOperation = "source-over";
+
+      ctx.clearRect(0, 0, W, H);
+      // a blown-up, weak copy first: the cheapest possible bloom
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = 0.22;
+      ctx.drawImage(buf, -W * 0.05, -H * 0.05, W * 1.1, H * 1.1);
       ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.drawImage(buf, 0, 0, W, H);
+
       requestAnimationFrame(draw);
     };
 
-    build();
+    size();
     draw();
 
-    var ro = "ResizeObserver" in window ? new ResizeObserver(build) : null;
-    if (ro) ro.observe(canvas); else window.addEventListener("resize", build);
+    var ro = "ResizeObserver" in window ? new ResizeObserver(size) : null;
+    if (ro) ro.observe(canvas); else window.addEventListener("resize", size);
+    window.addEventListener("scroll", function () { rect = canvas.getBoundingClientRect(); }, { passive: true });
 
     window.addEventListener("mousemove", function (e) {
-      var r = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - r.left;
-      pointer.y = e.clientY - r.top;
+      if (!rect) return;
+      var dx = e.clientX - (rect.left + rect.width / 2);
+      var dy = e.clientY - (rect.top + rect.height / 2);
+      ang = Math.atan2(dy, dx);
+      var reach = Math.min(rect.width, rect.height) * 0.5 || 1;
+      pullTo = Math.max(0, Math.min(1, 1.6 - Math.sqrt(dx * dx + dy * dy) / reach));
     }, { passive: true });
-    window.addEventListener("mouseout", function () { pointer.x = pointer.y = -9999; });
-
-    if (themeBtn) themeBtn.addEventListener("click", function () {
-      setTimeout(function () { colors = readVars(); }, 60);
-    });
+    window.addEventListener("mouseout", function () { pullTo = 0; });
   }
 
   /* ------------------------------------------------------------- marquee */
